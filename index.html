@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCalculo - Calculadora de Medicamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group.hidden {
+            display: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .input-group input {
+            flex: 1;
+        }
+
+        .unidade {
+            min-width: 100px;
+            padding: 12px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            color: #4a5568;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .info-texto {
+            font-size: 0.9em;
+            color: #718096;
+            margin-top: 8px;
+            padding-left: 5px;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-calcular {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-calcular:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-limpar {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-limpar:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sucesso {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            color: #2f855a;
+            border: none;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.2);
+        }
+
+        .datas {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MediCalculo</h1>
+            <div class="subtitle">Calculadora Inteligente de Medicamentos</div>
+        </div>
+
+        <form id="calculadora">
+            <div class="form-group">
+                <label for="tipoMedicamento">Tipo de Medicamento:</label>
+                <select id="tipoMedicamento" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="comprimido">Comprimido</option>
+                    <option value="capsula">Cápsula</option>
+                    <option value="solucao">Solução</option>
+                    <option value="gota">Gota</option>
+                    <option value="supositorio">Supositório</option>
+                    <option value="ampola">Ampola</option>
+                    <option value="adesivo">Adesivo Transdérmico</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade Total (Caixa/Frasco):</label>
+                <div class="input-group">
+                    <input type="number" id="quantidade" required min="0" step="any">
+                    <span class="unidade" id="unidadeQuantidade">-</span>
+                </div>
+            </div>
+
+            <div class="form-group hidden" id="gotasPorMl">
+                <label for="fatorGotas">Gotas por mL:</label>
+                <div class="input-group">
+                    <input type="number" id="fatorGotas" value="20" min="1">
+                    <span class="unidade">gotas/mL</span>
+                </div>
+                <div class="info-texto">✨ Padrão: 20 gotas = 1 mL (verifique na bula do medicamento)</div>
+            </div>
+
+            <div class="form-group">
+                <label for="dosagem">Dosagem por vez:</label>
+                <div class="input-group">
+                    <input type="number" id="dosagem" required min="0" step="any">
+                    <span class="unidade" id="unidadeDosagem">-</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dosesPorDia">Doses por dia:</label>
+                <input type="number" id="dosesPorDia" required min="1" value="1">
+            </div>
+
+            <div class="form-group">
+                <label for="dataInicio">Data de Início:</label>
+                <input type="date" id="dataInicio" required>
+            </div>
+
+            <div class="buttons-container">
+                <button type="button" class="btn-limpar" id="btnLimpar">Limpar</button>
+                <button type="submit" class="btn-calcular">Calcular</button>
+            </div>
+        </form>
+
+        <div id="resultado"></div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button onclick="window.print()" type="button" class="btn btn-outline-light">Imprimir</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Adiciona a função de limpar
+        document.getElementById('btnLimpar').addEventListener('click', function () {
+            document.getElementById('calculadora').reset();
+            document.getElementById('resultado').style.display = 'none';
+
+            // Reseta as unidades
+            document.getElementById('unidadeQuantidade').textContent = '-';
+            document.getElementById('unidadeDosagem').textContent = '-';
+
+            // Esconde o campo de gotas
+            document.getElementById('gotasPorMl').classList.add('hidden');
+        });
+
+        // Configuração das unidades de medida para cada tipo de medicamento
+        const unidadesMedida = {
+            comprimido: {
+                quantidade: "comprimido(s)",
+                dosagem: "comprimido(s)"
+            },
+            capsula: {
+                quantidade: "cápsula(s)",
+                dosagem: "cápsula(s)"
+            },
+            solucao: {
+                quantidade: "mL",
+                dosagem: "mL"
+            },
+            gota: {
+                quantidade: "mL",
+                dosagem: "gota(s)"
+            },
+            supositorio: {
+                quantidade: "supositório(s)",
+                dosagem: "supositório(s)"
+            },
+            ampola: {
+                quantidade: "ampola(s)",
+                dosagem: "ampola(s)"
+            },
+            adesivo: {
+                quantidade: "adesivo(s)",
+                dosagem: "adesivo(s)"
+            },
+        };
+
+        // Configura a data mínima como hoje
+        const hoje = new Date();
+        const dataFormatada = hoje.toISOString().split('T')[0];
+        document.getElementById('dataInicio').min = dataFormatada;
+        document.getElementById('dataInicio').value = dataFormatada;
+
+        // Atualiza as unidades quando o tipo de medicamento é alterado
+        document.getElementById('tipoMedicamento').addEventListener('change', function () {
+            const tipo = this.value;
+            const unidadeQuantidade = document.getElementById('unidadeQuantidade');
+            const unidadeDosagem = document.getElementById('unidadeDosagem');
+            const gotasPorMl = document.getElementById('gotasPorMl');
+
+            if (tipo && unidadesMedida[tipo]) {
+                unidadeQuantidade.textContent = unidadesMedida[tipo].quantidade;
+                unidadeDosagem.textContent = unidadesMedida[tipo].dosagem;
+
+                // Mostra ou esconde campos específicos para gotas
+                if (tipo === 'gota') {
+                    gotasPorMl.classList.remove('hidden');
+                } else {
+                    gotasPorMl.classList.add('hidden');
+                }
+            } else {
+                unidadeQuantidade.textContent = '-';
+                unidadeDosagem.textContent = '-';
+                gotasPorMl.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('calculadora').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const tipo = document.getElementById('tipoMedicamento').value;
+            const quantidade = parseFloat(document.getElementById('quantidade').value);
+            const dosagemPorVez = parseFloat(document.getElementById('dosagem').value);
+            const dosesPorDia = parseInt(document.getElementById('dosesPorDia').value);
+            const dataInicio = new Date(document.getElementById('dataInicio').value);
+
+            if (!tipo) {
+                alert('Por favor, selecione um tipo de medicamento!');
+                return;
+            }
+
+            let dosagemDiaria = dosagemPorVez * dosesPorDia;
+            let quantidadeTotal = quantidade;
+            let dias;
+            let resto;
+
+            if (tipo === 'gota') {
+                const gotasPorMl = parseFloat(document.getElementById('fatorGotas').value);
+                // Converte mL para gotas
+                quantidadeTotal = quantidade * gotasPorMl;
+                dias = Math.floor(quantidadeTotal / dosagemDiaria);
+                resto = quantidadeTotal % dosagemDiaria;
+            } else {
+                dias = Math.floor(quantidade / dosagemDiaria);
+                resto = quantidade % dosagemDiaria;
+            }
+
+            // Calcula a data final
+            const dataFinal = new Date(dataInicio);
+            dataFinal.setDate(dataInicio.getDate() + dias - 1);
+
+            const resultadoDiv = document.getElementById('resultado');
+
+            let mensagem = '';
+            if (tipo === 'gota') {
+                mensagem = `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
+                mensagem += `tomando ${dosagemPorVez} gotas ${dosesPorDia}x ao dia (total de ${dosagemDiaria} gotas/dia), `;
+            } else {
+                mensagem = `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
+                mensagem += `tomando ${dosagemPorVez} ${unidadesMedida[tipo].dosagem} ${dosesPorDia}x ao dia, `;
+            }
+
+            mensagem += `o medicamento durará ${dias} dia(s)`;
+
+            if (resto > 0) {
+                if (tipo === 'gota') {
+                    mensagem += ` e sobrarão ${resto.toFixed(0)} gotas`;
+                } else {
+                    mensagem += ` e sobrarão ${resto.toFixed(2)} ${unidadesMedida[tipo].quantidade}`;
+                }
+            }
+
+            mensagem += '.<br><br>';
+
+            // Adiciona as datas formatadas à mensagem
+            const opcoesData = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            mensagem += `<div class="datas">
+                <strong>Data de Início:</strong> ${dataInicio.toLocaleDateString('pt-BR', opcoesData)}<br>
+                <strong>Data Final:</strong> ${dataFinal.toLocaleDateString('pt-BR', opcoesData)}
+            </div>`;
+
+            resultadoDiv.innerHTML = mensagem;
+            resultadoDiv.className = 'sucesso';
+            resultadoDiv.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
