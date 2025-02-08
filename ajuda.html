@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="styesheet" href="index.html">
+    <title>Guia Rápido - MediCalculo</title>
+    <link rel="icon" href="./img/Calendario med.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #839deb 0%, #577ae4 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+        }
+
+        .guia-secao {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .passo {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s ease;
+        }
+
+        .passo:hover {
+            transform: translateX(10px);
+        }
+
+        .passo-numero {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .passo-conteudo h3 {
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .passo-conteudo p {
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        .destaque {
+            background: #ebf4ff;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .dicas {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .dicas h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .dicas ul {
+            list-style: none;
+        }
+
+        .dicas li {
+            color: #718096;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .dicas li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        .nota {
+            font-size: 0.9em;
+            color: #9f7aea;
+            margin-top: 8px;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .passo {
+                flex-direction: column;
+            }
+
+            .passo-numero {
+                margin-bottom: 15px;
+            }
+
+            .passo:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <div class="fixed-top">
+        <nav class="navbar bg-body-tertiary">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="./img/Calendario med.jpg" alt="Logo" width="30" height="24"
+                        class="d-inline-block align-text-top">
+                    MediCalculo
+                </a>
+            </div>
+        </nav>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./ajuda.html">Ajuda</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Procurar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <div class="header">
+            <h1>Guia Rápido - MediCalculo</h1>
+            <img src="./img/Ajuda.jpg" class="img-fluid mx-auto d-block img-thumbnail" alt="Imagem MediCalculo">
+            <br />
+            <div class="subtitle">Como usar a calculadora de medicamentos</div>
+        </div>
+
+        <div class="guia-secao">
+            <h2>Passos para Calcular</h2>
+
+            <div class="passo">
+                <div class="passo-numero">1</div>
+                <div class="passo-conteudo">
+                    <h3>Selecione o Tipo de Medicamento</h3>
+                    <p>Escolha entre as opções disponíveis: comprimido, cápsula, solução, gotas, etc.</p>
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="passo-numero">2</div>
+                <div class="passo-conteudo">
+                    <h3>Quantidade Total</h3>
+                    <p>Digite a quantidade total do medicamento na embalagem.</p>
+                    <p class="nota">Para medicamentos em gotas, insira o volume em mL do frasco.</p>
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="passo-numero">3</div>
+                <div class="passo-conteudo">
+                    <h3>Dosagem por Vez</h3>
+                    <p>Informe a quantidade que deve ser tomada em cada dose.</p>
+                    <p class="nota">Exemplo: 1 comprimido, 20 gotas, 5mL, etc.</p>
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="passo-numero">4</div>
+                <div class="passo-conteudo">
+                    <h3>Doses por Dia</h3>
+                    <p>Digite quantas vezes ao dia o medicamento deve ser tomado.</p>
+                    <p class="nota">Exemplo: 3 vezes ao dia = 3</p>
+                </div>
+            </div>
+
+            <div class="passo">
+                <div class="passo-numero">5</div>
+                <div class="passo-conteudo">
+                    <h3>Data de Início</h3>
+                    <p>Selecione a data em que começará a tomar o medicamento.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="destaque">
+            <h3>Caso Especial: Medicamentos em Gotas</h3>
+            <p>Para medicamentos em gotas, você precisará:</p>
+            <ul>
+                <li>Informar o volume do frasco em mL</li>
+                <li>Verificar na bula a proporção de gotas por mL (padrão: 20 gotas = 1mL)</li>
+                <li>Informar a dosagem em número de gotas</li>
+            </ul>
+        </div>
+
+        <div class="dicas">
+            <h3>Dicas Importantes</h3>
+            <ul>
+                <li>Sempre confira a prescrição médica antes de fazer o cálculo</li>
+                <li>Verifique se as unidades de medida estão corretas</li>
+                <li>O resultado mostrará a data final do tratamento</li>
+                <li>Você verá também se sobrará medicamento ao final do tratamento</li>
+                <li>Use o botão "Limpar" para fazer um novo cálculo</li>
+            </ul>
+        </div>
+
+        <a href="./index.html" class="btn-voltar">
+            Voltar para a Calculadora
+        </a>
+    </div>
+    <br />
+    <br />
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button onclick="window.print()" type="button" class="btn btn-outline-light">Imprimir</button>
+    </div>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+
+</html>
