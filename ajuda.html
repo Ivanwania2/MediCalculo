@@ -225,6 +225,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="https://forms.gle/EdhKdkwh38BZM2at7">Fale Conosco</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)" onclick="share()">
+                                <img width="25" height="25"
+                                    src="https://e7.pngegg.com/pngimages/248/430/png-clipart-share-share-thumbnail.png"
+                                    alt="">Compartilhar</a>
+                            <script>
+                                function share() {
+                                    if (navigator.share !== undefined) {
+                                        navigator.share({
+                                            title: 'MediCalculo',
+                                            text: 'Calculadora Inteligente de Medicamentos',
+                                            url: 'https://ivanwania2.github.io/MediCalculo/',
+                                        })
+                                            .then(() => console.log('Successful share'))
+                                            .catch((error) => console.log('Error sharing', error));
+                                    }
+                                }
+                            </script>
+                        </li>
                     </ul>
                 </div>
             </div>
