@@ -492,44 +492,7 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-    <br>
-        <div>
-        <button id="installBtn">Instalar como App</button>
-
-        <script>
-            let deferredPrompt;
-            const installBtn = document.getElementById('installBtn');
-
-            window.addEventListener('beforeinstallprompt', (e) => {
-                // Prevenir que o mini-infobar apareça
-                e.preventDefault();
-                deferredPrompt = e;
-                // Tornar o botão visível
-                installBtn.style.display = 'block';
-
-                installBtn.addEventListener('click', () => {
-                    // Ocultar o botão
-                    installBtn.style.display = 'none';
-                    // Mostrar o prompt de instalação
-                    deferredPrompt.prompt();
-                    // Esperar pela escolha do usuário
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('Usuário aceitou a instalação');
-                        } else {
-                            console.log('Usuário rejeitou a instalação');
-                        }
-                        deferredPrompt = null;
-                    });
-                });
-            });
-
-            window.addEventListener('appinstalled', (evt) => {
-                console.log('PWA foi instalado');
-            });
-        </script>
-    </div>
-
+    
 </body>
 
 </html>
