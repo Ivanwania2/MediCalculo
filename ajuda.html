@@ -186,6 +186,14 @@
                 transform: none;
             }
         }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -218,6 +226,9 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="./index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./calculadora.html">Calculadora</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./ajuda.html">Ajuda</a>
@@ -256,7 +267,8 @@
     <div class="container">
         <div class="header">
             <h1>Guia Rápido</h1>
-            <img src="./img/Logotipo menor.jpg" class="img-fluid mx-auto d-block img-thumbnail" alt="Imagem MediCalculo">
+            <img src="./img/Logotipo menor.jpg" class="img-fluid mx-auto d-block img-thumbnail"
+                alt="Imagem MediCalculo">
             <br />
             <div class="subtitle">Como usar a calculadora de medicamentos</div>
         </div>
@@ -329,7 +341,7 @@
             </ul>
         </div>
 
-        <a href="./index.html" class="btn-voltar">
+        <a href="./calculadora.html" class="btn-voltar">
             Voltar para a Calculadora
         </a>
     </div>
@@ -338,6 +350,12 @@
     <div class="d-grid gap-2 col-6 mx-auto">
         <button onclick="window.print()" type="button" class="btn btn-outline-light">Imprimir</button>
     </div>
+    <br />
+    <footer class="footer">
+        <p>MediCalculo - Sua assistente para controle de medicamentos, pensando no seu bem-estar</p>
+        <p>© 2025 Todos os direitos reservados.</p>
+        <p>Desenvolvido por Ivan Monteiro de Oliveira</p>
+    </footer>
 
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
@@ -349,6 +367,7 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
+   
 </body>
 
 </html>
