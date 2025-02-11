@@ -377,25 +377,33 @@
     <br />
     <script>
         document.getElementById('btnDownload').addEventListener('click', function () {
-            html2canvas(document.body).then(function (canvas) {
-                var imgData = canvas.toDataURL('image/png');
-                var { jsPDF } = window.jspdf;
-                var pdf = new jsPDF('p', 'mm', 'a4');
-                var imgWidth = 210; // Largura da imagem em mm
-                var pageHeight = 295; // Altura da página em mm
-                var imgHeight = canvas.height * imgWidth / canvas.width;
-
-                // Se a altura da imagem for maior que a altura da página, ajuste a altura
-                if (imgHeight > pageHeight) {
-                    imgHeight = pageHeight;
-                    imgWidth = canvas.width * imgHeight / canvas.height;
-                }
-
-                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                pdf.save('tela_completa.pdf');
-            });
+          html2canvas(document.body, {
+            useCORS: true,
+            scale: 2,
+            logging: true,
+            onclone: function (clonedDoc) {
+              clonedDoc.getElementById('btnDownload').style.display = 'none';
+            }
+          }).then(function (canvas) {
+            var imgData = canvas.toDataURL('image/png');
+            var { jsPDF } = window.jspdf;
+            var pdf = new jsPDF('p', 'mm', 'a4');
+            var imgWidth = 210;
+            var pageHeight = 295;
+            var imgHeight = canvas.height * imgWidth / canvas.width;
+    
+            if (imgHeight > pageHeight) {
+              imgHeight = pageHeight;
+              imgWidth = canvas.width * imgHeight / canvas.height;
+            }
+    
+            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            pdf.save('tela_completa.pdf');
+          }).catch(function (error) {
+            console.error('Erro ao gerar o PDF:', error);
+          });
         });
-    </script>
+      </script>
     <br />
     <footer class="footer">
         <p>MediCalculo - Sua assistente para controle de medicamentos, pensando no seu bem-estar</p>
