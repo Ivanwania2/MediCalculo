@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MediCalculo - Calculadora de Medicamentos</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <link rel="styesheet" href="ajuda.html">
     <link rel="styesheet" href="index.html">
     <link rel="icon" href="./img/Logotipo.jpg">
@@ -379,6 +379,7 @@
         document.getElementById('btnDownload').addEventListener('click', function () {
             html2canvas(document.body).then(function (canvas) {
                 var imgData = canvas.toDataURL('image/png');
+                var { jsPDF } = window.jspdf;
                 var pdf = new jsPDF('p', 'mm', 'a4');
                 var imgWidth = 210; // Largura da imagem em mm
                 var pageHeight = 295; // Altura da página em mm
