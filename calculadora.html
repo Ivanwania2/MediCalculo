@@ -378,33 +378,33 @@
     <br />
     <script>
         document.getElementById('btnDownload').addEventListener('click', function () {
-          html2canvas(document.body, {
-            useCORS: true,
-            scale: 2,
-            logging: true,
-            onclone: function (clonedDoc) {
-              clonedDoc.getElementById('btnDownload').style.display = 'none';
-            }
-          }).then(function (canvas) {
-            var imgData = canvas.toDataURL('image/png');
-            var { jsPDF } = window.jspdf;
-            var pdf = new jsPDF('p', 'mm', 'a4');
-            var imgWidth = 210;
-            var pageHeight = 295;
-            var imgHeight = canvas.height * imgWidth / canvas.width;
-    
-            if (imgHeight > pageHeight) {
-              imgHeight = pageHeight;
-              imgWidth = canvas.width * imgHeight / canvas.height;
-            }
-    
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            pdf.save('tela_completa.pdf');
-          }).catch(function (error) {
-            console.error('Erro ao gerar o PDF:', error);
-          });
+            html2canvas(document.body, {
+                useCORS: true,
+                scale: 2,
+                logging: true,
+                onclone: function (clonedDoc) {
+                    clonedDoc.getElementById('btnDownload').style.display = 'none';
+                }
+            }).then(function (canvas) {
+                var imgData = canvas.toDataURL('image/png');
+                var { jsPDF } = window.jspdf;
+                var pdf = new jsPDF('p', 'mm', 'a4');
+                var imgWidth = 210;
+                var pageHeight = 295;
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+
+                if (imgHeight > pageHeight) {
+                    imgHeight = pageHeight;
+                    imgWidth = canvas.width * imgHeight / canvas.height;
+                }
+
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.save('tela_completa.pdf');
+            }).catch(function (error) {
+                console.error('Erro ao gerar o PDF:', error);
+            });
         });
-      </script>
+    </script>
     <br />
     <footer class="footer">
         <p>MediCalculo - Sua assistente para controle de medicamentos, pensando no seu bem-estar</p>
@@ -498,7 +498,8 @@
             const quantidade = parseFloat(document.getElementById('quantidade').value);
             const dosagemPorVez = parseFloat(document.getElementById('dosagem').value);
             const dosesPorDia = parseInt(document.getElementById('dosesPorDia').value);
-            const dataInicio = new Date(document.getElementById('dataInicio').value);
+            const dataInicioInput = document.getElementById('dataInicio').value;
+            const dataInicio = new Date(dataInicioInput + 'T00:00:00'); // Força meia-noite no fuso local
 
             if (!tipo) {
                 alert('Por favor, selecione um tipo de medicamento!');
