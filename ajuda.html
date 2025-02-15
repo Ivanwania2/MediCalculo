@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="styesheet" href="index.html">
     <link rel="stylesheet" href="faleconosco.html">
-    <title>Guia Rápido - MediCalculo</title>
+    <title>Calculadora de Medicamentos | Guia Rápido</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <link rel="icon" href="./img/Logotipo.jpg">
@@ -222,9 +222,9 @@
 
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.html">
-                    <img src="./img/Logotipo.jpg" alt="Logo" width="30" height="24"
+                    <img src="./img/Logotipo.jpg" alt="Logo" width="24" height="24"
                         class="d-inline-block align-text-top">
-                    MediCalculo
+                    Calculadora de Medicamentos
                 </a>
             </div>
         </nav>
@@ -372,33 +372,33 @@
     <br />
     <script>
         document.getElementById('btnDownload').addEventListener('click', function () {
-          html2canvas(document.body, {
-            useCORS: true,
-            scale: 2,
-            logging: true,
-            onclone: function (clonedDoc) {
-              clonedDoc.getElementById('btnDownload').style.display = 'none';
-            }
-          }).then(function (canvas) {
-            var imgData = canvas.toDataURL('image/png');
-            var { jsPDF } = window.jspdf;
-            var pdf = new jsPDF('p', 'mm', 'a4');
-            var imgWidth = 210;
-            var pageHeight = 295;
-            var imgHeight = canvas.height * imgWidth / canvas.width;
-    
-            if (imgHeight > pageHeight) {
-              imgHeight = pageHeight;
-              imgWidth = canvas.width * imgHeight / canvas.height;
-            }
-    
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            pdf.save('tela_completa.pdf');
-          }).catch(function (error) {
-            console.error('Erro ao gerar o PDF:', error);
-          });
+            html2canvas(document.body, {
+                useCORS: true,
+                scale: 2,
+                logging: true,
+                onclone: function (clonedDoc) {
+                    clonedDoc.getElementById('btnDownload').style.display = 'none';
+                }
+            }).then(function (canvas) {
+                var imgData = canvas.toDataURL('image/png');
+                var { jsPDF } = window.jspdf;
+                var pdf = new jsPDF('p', 'mm', 'a4');
+                var imgWidth = 210;
+                var pageHeight = 295;
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+
+                if (imgHeight > pageHeight) {
+                    imgHeight = pageHeight;
+                    imgWidth = canvas.width * imgHeight / canvas.height;
+                }
+
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.save('tela_completa.pdf');
+            }).catch(function (error) {
+                console.error('Erro ao gerar o PDF:', error);
+            });
         });
-      </script>
+    </script>
     <br />
     <footer class="footer">
         <p>MediCalculo - Sua assistente para controle de medicamentos, pensando no seu bem-estar</p>
