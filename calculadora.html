@@ -469,6 +469,10 @@
     <br />
     <br />
     <div class="d-grid gap-2 col-6 mx-auto">
+        <a href="./ajuda.html" type="button" class="btn btn-outline-light">Acessar Ajuda</a>
+    </div>
+    <br />
+    <div class="d-grid gap-2 col-6 mx-auto">
         <button onclick="window.print()" type="button" class="btn btn-outline-light">Imprimir</button>
     </div>
     <br />
@@ -509,7 +513,7 @@
                     heightLeft -= pageHeight;
                 }
     
-                pdf.save('tela_completa.pdf');
+                pdf.save('Tela_Calculadora.pdf');
             }).catch(function (error) {
                 console.error('Erro ao gerar o PDF:', error);
             });
