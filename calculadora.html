@@ -232,6 +232,102 @@
             padding: 40px 20px;
             text-align: center;
         }
+
+        .horarios-doses {
+            margin-top: 30px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .horarios-doses h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .tabela-horarios {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        .tabela-horarios table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabela-horarios th,
+        .tabela-horarios td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tabela-horarios th {
+            background: #667eea;
+            color: white;
+            font-weight: 500;
+        }
+
+        .tabela-horarios tr:hover {
+            background: #f7fafc;
+        }
+
+        .tabela-horarios td {
+            color: #4a5568;
+        }
+
+        @media (max-width: 640px) {
+            .tabela-horarios {
+                font-size: 0.9em;
+            }
+
+            .tabela-horarios th,
+            .tabela-horarios td {
+                padding: 8px;
+            }
+        }
+
+        /* Estilos adicionais para melhorar a apresentação */
+        .resultado {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sucesso {
+            border-left: 4px solid #48bb78;
+        }
+
+        .datas {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 6px;
+            line-height: 1.8;
+        }
+
+        /* Melhorias de acessibilidade e usabilidade */
+        @media (prefers-reduced-motion: reduce) {
+            .tabela-horarios tr:hover {
+                background: inherit;
+            }
+        }
+
+        @media print {
+            .tabela-horarios {
+                overflow-x: visible;
+            }
+
+            .tabela-horarios table {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+        }
     </style>
 </head>
 
@@ -259,7 +355,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="https://www.medicalculo.com.br/">Início</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="https://www.medicalculo.com.br/">Início</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./calculadora.html">Calculadora</a>
@@ -301,11 +398,8 @@
     <br />
     <div class="container">
         <div class="header">
-            <h1>Calculadora de Medicamentos
-                <br/>
-                <br/>
-                MediCalculo</h1>
-            <img src="./img/Calendario med.jpg" class="img-fluid mx-auto d-block img-thumbnail"
+            <h1>Calculadora de Medicamentos</h1>
+            <img src="./img/Logotipo menor.png" class="img-fluid mx-auto d-block img-thumbnail"
                 alt="Imagem MediCalculo">
             <br />
             <div class="subtitle">Calculadora Inteligente de Medicamentos</div>
@@ -360,7 +454,10 @@
                 <label for="dataInicio">Data de Início:</label>
                 <input type="date" id="dataInicio" required>
             </div>
-
+            <div class="form-group">
+                <label for="horaPrimeiraDose">Horário da Primeira Dose:</label>
+                <input type="time" id="horaPrimeiraDose" name="horaPrimeiraDose" required class="form-control">
+            </div>
             <div class="buttons-container">
                 <button type="button" class="btn-limpar" id="btnLimpar">Limpar</button>
                 <button type="submit" class="btn-calcular">Calcular</button>
@@ -391,17 +488,27 @@
             }).then(function (canvas) {
                 var imgData = canvas.toDataURL('image/png');
                 var { jsPDF } = window.jspdf;
-                var pdf = new jsPDF('p', 'mm', 'a4');
-                var imgWidth = 210;
-                var pageHeight = 295;
+                var pdf = new jsPDF('p', 'mm', 'a4'); // Orientação retrato
+                var imgWidth = 210 - 10; // Largura A4 menos 5 mm de cada lado
+                var pageHeight = 297 - 10; // Altura A4 menos 5 mm de cada lado
                 var imgHeight = canvas.height * imgWidth / canvas.width;
-
-                if (imgHeight > pageHeight) {
-                    imgHeight = pageHeight;
-                    imgWidth = canvas.width * imgHeight / canvas.height;
+    
+                let heightLeft = imgHeight;
+    
+                let position = 5; // Margem superior de 5 mm
+                const pageMargin = 5; // Margem entre páginas
+    
+                // Adiciona a imagem ao PDF, permitindo que ela passe para novas páginas
+                pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
+                heightLeft -= pageHeight;
+    
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight + pageMargin; // Ajusta a posição para a nova página, com margem
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
+                    heightLeft -= pageHeight;
                 }
-
-                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    
                 pdf.save('tela_completa.pdf');
             }).catch(function (error) {
                 console.error('Erro ao gerar o PDF:', error);
@@ -494,81 +601,136 @@
             }
         });
 
-        document.getElementById('calculadora').addEventListener('submit', function (e) {
-            e.preventDefault();
+        document.getElementById('calculadora').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-            const tipo = document.getElementById('tipoMedicamento').value;
-            const quantidade = parseFloat(document.getElementById('quantidade').value);
-            const dosagemPorVez = parseFloat(document.getElementById('dosagem').value);
-            const dosesPorDia = parseInt(document.getElementById('dosesPorDia').value);
-            const dataInicioInput = document.getElementById('dataInicio').value;
-            const dataInicio = new Date(dataInicioInput + 'T00:00:00'); // Força meia-noite no fuso local
+    const tipo = document.getElementById('tipoMedicamento').value;
+    const quantidade = parseFloat(document.getElementById('quantidade').value);
+    const dosagemPorVez = parseFloat(document.getElementById('dosagem').value);
+    const dosesPorDia = parseInt(document.getElementById('dosesPorDia').value);
+    const dataInicioInput = document.getElementById('dataInicio').value;
+    const horaPrimeiraDose = document.getElementById('horaPrimeiraDose').value;
+    
+    const dataInicio = new Date(dataInicioInput + 'T' + horaPrimeiraDose);
+    
+    if (!tipo || !horaPrimeiraDose) {
+        alert('Por favor, preencha todos os campos!');
+        return;
+    }
 
-            if (!tipo) {
-                alert('Por favor, selecione um tipo de medicamento!');
-                return;
-            }
+    let dosagemDiaria = dosagemPorVez * dosesPorDia;
+    let quantidadeTotal = quantidade;
+    let dias;
+    let resto;
 
-            let dosagemDiaria = dosagemPorVez * dosesPorDia;
-            let quantidadeTotal = quantidade;
-            let dias;
-            let resto;
+    if (tipo === 'gota') {
+        const gotasPorMl = parseFloat(document.getElementById('fatorGotas').value);
+        quantidadeTotal = quantidade * gotasPorMl;
+        dias = Math.floor(quantidadeTotal / dosagemDiaria);
+        resto = quantidadeTotal % dosagemDiaria;
+    } else {
+        dias = Math.floor(quantidade / dosagemDiaria);
+        resto = quantidade % dosagemDiaria;
+    }
+    
+    const dataFinal = new Date(dataInicio);
+    dataFinal.setDate(dataInicio.getDate() + dias - 1);
 
-            if (tipo === 'gota') {
-                const gotasPorMl = parseFloat(document.getElementById('fatorGotas').value);
-                // Converte mL para gotas
-                quantidadeTotal = quantidade * gotasPorMl;
-                dias = Math.floor(quantidadeTotal / dosagemDiaria);
-                resto = quantidadeTotal % dosagemDiaria;
-            } else {
-                dias = Math.floor(quantidade / dosagemDiaria);
-                resto = quantidade % dosagemDiaria;
-            }
+    // Gerar horários das doses
+    const horarios = gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia);
 
-            // Calcula a data final
-            const dataFinal = new Date(dataInicio);
-            dataFinal.setDate(dataInicio.getDate() + dias - 1);
+    const resultadoDiv = document.getElementById('resultado');
 
-            const resultadoDiv = document.getElementById('resultado');
+    let mensagem = '';
+    if (tipo === 'gota') {
+        mensagem = `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
+        mensagem += `tomando ${dosagemPorVez} gotas ${dosesPorDia}x ao dia (total de ${dosagemDiaria} gotas/dia), `;
+    } else {
+        mensagem = `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
+        mensagem += `tomando ${dosagemPorVez} ${unidadesMedida[tipo].dosagem} ${dosesPorDia}x ao dia, `;
+    }
 
-            let mensagem = '';
-            if (tipo === 'gota') {
-                mensagem = `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
-                mensagem += `tomando ${dosagemPorVez} gotas ${dosesPorDia}x ao dia (total de ${dosagemDiaria} gotas/dia), `;
-            } else {
-                mensagem = `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
-                mensagem += `tomando ${dosagemPorVez} ${unidadesMedida[tipo].dosagem} ${dosesPorDia}x ao dia, `;
-            }
+    mensagem += `o medicamento durará ${dias} dia(s)`;
+    
+    if (resto > 0) {
+        if (tipo === 'gota') {
+            mensagem += ` e sobrarão ${resto.toFixed(0)} gotas`;
+        } else {
+            mensagem += ` e sobrarão ${resto.toFixed(2)} ${unidadesMedida[tipo].quantidade}`;
+        }
+    }
 
-            mensagem += `o medicamento durará ${dias} dia(s)`;
+    mensagem += '.<br><br>';
+    
+    const opcoesData = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
 
-            if (resto > 0) {
-                if (tipo === 'gota') {
-                    mensagem += ` e sobrarão ${resto.toFixed(0)} gotas`;
-                } else {
-                    mensagem += ` e sobrarão ${resto.toFixed(2)} ${unidadesMedida[tipo].quantidade}`;
-                }
-            }
+    mensagem += `<div class="datas">
+        <strong>Data de Início:</strong> ${dataInicio.toLocaleDateString('pt-BR', opcoesData)}<br>
+        <strong>Data Final:</strong> ${dataFinal.toLocaleDateString('pt-BR', opcoesData)}
+    </div>`;
 
-            mensagem += '.<br><br>';
+    // Adicionar tabela de horários
+    mensagem += `
+    <div class="horarios-doses">
+        <h3>Horários das Doses</h3>
+        <div class="tabela-horarios">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Dia da Semana</th>
+                        <th>Horário</th>
+                        <th>Dose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${horarios.map(h => `
+                        <tr>
+                            <td>${h.data.toLocaleDateString('pt-BR')}</td>
+                            <td>${h.data.toLocaleDateString('pt-BR', {weekday: 'long'})}</td>
+                            <td>${h.hora}</td>
+                            <td>${dosagemPorVez} ${unidadesMedida[tipo].dosagem}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>`;
 
-            // Adiciona as datas formatadas à mensagem
-            const opcoesData = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
+    resultadoDiv.innerHTML = mensagem;
+    resultadoDiv.className = 'sucesso';
+    resultadoDiv.style.display = 'block';
+});
 
-            mensagem += `<div class="datas">
-                <strong>Data de Início:</strong> ${dataInicio.toLocaleDateString('pt-BR', opcoesData)}<br>
-                <strong>Data Final:</strong> ${dataFinal.toLocaleDateString('pt-BR', opcoesData)}
-            </div>`;
+function gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia) {
+    const horarios = [];
+    const intervalo = 24 / dosesPorDia; // Intervalo em horas entre as doses
+    const dataAtual = new Date(dataInicio);
 
-            resultadoDiv.innerHTML = mensagem;
-            resultadoDiv.className = 'sucesso';
-            resultadoDiv.style.display = 'block';
-        });
+    while (dataAtual <= dataFinal) {
+        for (let dose = 0; dose < dosesPorDia; dose++) {
+            const horaAlvo = new Date(dataAtual);
+            horaAlvo.setHours(dataInicio.getHours() + (dose * intervalo));
+            horaAlvo.setMinutes(dataInicio.getMinutes());
+
+            horarios.push({
+                data: new Date(horaAlvo),
+                hora: horaAlvo.toLocaleTimeString('pt-BR', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            });
+        }
+        dataAtual.setDate(dataAtual.getDate() + 1);
+    }
+
+    return horarios;
+}
     </script>
 
     <div vw class="enabled">

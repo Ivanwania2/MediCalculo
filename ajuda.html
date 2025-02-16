@@ -333,6 +333,20 @@
                     <p>Selecione a data em que começará a tomar o medicamento.</p>
                 </div>
             </div>
+            <div class="passo">
+                <div class="passo-numero">6</div>
+                <div class="passo-conteudo">
+                    <h3>Horário da Primeira Dose</h3>
+                    <p>Digite o horário da primeira dose.</p>
+                </div>
+            </div>
+            <div class="passo">
+                <div class="passo-numero">7</div>
+                <div class="passo-conteudo">
+                    <h3>Receba o Resultado</h3>
+                    <p>Veja quando seu medicamento vai acabar e programe-se com antecedência para a próxima compra ou retirada no SUS.</p>
+                </div>
+            </div>
         </div>
 
         <div class="destaque">
@@ -350,7 +364,7 @@
             <ul>
                 <li>Sempre confira a prescrição médica antes de fazer o cálculo</li>
                 <li>Verifique se as unidades de medida estão corretas</li>
-                <li>O resultado mostrará a data final do tratamento</li>
+                <li>O resultado mostrará a data final, dias da semana com todos os horários das doses durante o tratamento</li>
                 <li>Você verá também se sobrará medicamento ao final do tratamento</li>
                 <li>Use o botão "Limpar" para fazer um novo cálculo</li>
             </ul>
@@ -382,17 +396,27 @@
             }).then(function (canvas) {
                 var imgData = canvas.toDataURL('image/png');
                 var { jsPDF } = window.jspdf;
-                var pdf = new jsPDF('p', 'mm', 'a4');
-                var imgWidth = 210;
-                var pageHeight = 295;
+                var pdf = new jsPDF('p', 'mm', 'a4'); // Orientação retrato
+                var imgWidth = 210 - 10; // Largura A4 menos 5 mm de cada lado
+                var pageHeight = 297 - 10; // Altura A4 menos 5 mm de cada lado
                 var imgHeight = canvas.height * imgWidth / canvas.width;
-
-                if (imgHeight > pageHeight) {
-                    imgHeight = pageHeight;
-                    imgWidth = canvas.width * imgHeight / canvas.height;
+    
+                let heightLeft = imgHeight;
+    
+                let position = 5; // Margem superior de 5 mm
+                const pageMargin = 5; // Margem entre páginas
+    
+                // Adiciona a imagem ao PDF, permitindo que ela passe para novas páginas
+                pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
+                heightLeft -= pageHeight;
+    
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight + pageMargin; // Ajusta a posição para a nova página, com margem
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
+                    heightLeft -= pageHeight;
                 }
-
-                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    
                 pdf.save('tela_completa.pdf');
             }).catch(function (error) {
                 console.error('Erro ao gerar o PDF:', error);
