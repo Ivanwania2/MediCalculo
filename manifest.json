@@ -12,9 +12,9 @@
             "type": "image/png"
         },
         {
-      "src": "/icons/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+            "src": "/img/logotipo.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
     ]
 }
