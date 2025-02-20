@@ -3,7 +3,7 @@
     "short_name": "MediCalculo",
     "start_url": "/calculadora.html",
     "display": "standalone",
-    "background_color": "#dbe3ec",
+    "background_color": "#ffffff",
     "theme_color": "#000000",
     "icons": [
         {
