@@ -225,7 +225,7 @@
         /* Seção FAQ */
         .faq {
             padding: 60px 20px;
-            background: #f7fafc;
+            background: #dbe3ec;
         }
 
         .faq-container {
@@ -283,14 +283,22 @@
             margin-top: 15px;
             font-size: 0.9em;
         }
+
         .qr-code {
-            width: 250px; /* Largura do QR code */
-            height: 250px; /* Altura do QR code */
-            border: 2px solid #718096; /* Borda preta */
-            border-radius: 10px; /* Bordas arredondadas */
-            padding: 10px; /* Espaçamento interno */
-            background-color: #fff; /* Cor de fundo branca */
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra */
+            width: 250px;
+            /* Largura do QR code */
+            height: 250px;
+            /* Altura do QR code */
+            border: 2px solid #718096;
+            /* Borda preta */
+            border-radius: 10px;
+            /* Bordas arredondadas */
+            padding: 10px;
+            /* Espaçamento interno */
+            background-color: #fff;
+            /* Cor de fundo branca */
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            /* Sombra */
         }
     </style>
 </head>
@@ -367,9 +375,9 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <header class="header">
-        <div class="logo">MediCalculo
+        <div class="logo"> Calculadora de Medicamentos Online
             <br />
-            Calculadora de Medicamentos Online
+            MediCalculo
         </div>
     </header>
 
@@ -486,59 +494,74 @@
 
     <section class="faq">
         <h2 class="section-title">Dúvidas Frequentes</h2>
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        É preciso pagar para usar?
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Não, o MediCalculo é totalmente gratuito!</div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="accordion w-75 p-3" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                                É preciso pagar para usar?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Não, o MediCalculo é totalmente gratuito!</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo">
+                                Funciona com qualquer tipo de medicamento?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Sim! Comprimidos, gotas, xaropes, ampolas e muito mais.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree">
+                                Preciso me cadastrar?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Não é necessário cadastro. É só acessar e usar!</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapsefour" aria-expanded="false"
+                                aria-controls="flush-collapsefour">
+                                Funciona no celular?
+                            </button>
+                        </h2>
+                        <div id="flush-collapsefour" class="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Sim, funciona em qualquer dispositivo com acesso à internet.
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Funciona com qualquer tipo de medicamento?
-                    </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Sim! Comprimidos, gotas, xaropes, ampolas e muito mais.</div>
-                </div>
+            <div class="qr-code-container">
+                <h3>Instalar nosso App</h3>
+                <img src="./img/QRCode_Fácil.png" alt="Qr-code instalar App" class="qr-code">
+                <p>Escaneie o QR Code para instalar o app
+                    <br />
+                    ou
+                </p>
+                <a href="./instalarApp.html" class="btn-principal">Clique aqui →</a>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        Preciso me cadastrar?
-                    </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Não é necessário cadastro. É só acessar e usar!</div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapsefour" aria-expanded="false" aria-controls="flush-collapsefour">
-                        Funciona no celular?
-                    </button>
-                </h2>
-                <div id="flush-collapsefour" class="accordion-collapse collapse"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Sim, funciona em qualquer dispositivo com acesso à internet.</div>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="qr-code-container">
-            <h3>Instalar nosso App</h3>
-            <img src="./img/QRCode_Fácil.png" alt="Qr-code instalar App" class="qr-code">
-            <p>Escaneie o QR Code para instalar o app</p>
         </div>
     </section>
     <div vw class="enabled">
