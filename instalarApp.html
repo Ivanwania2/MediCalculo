@@ -47,7 +47,7 @@
             backdrop-filter: blur(10px);
             width: 100%;
             max-width: 500px;
-            margin-top: 50px;
+            margin-top: 120px;
         }
 
         h1 {
@@ -156,6 +156,23 @@
             text-align: center;
             line-height: 1.0;
         }
+        .btn-voltar {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
     </style>
 </head>
 
@@ -220,9 +237,6 @@
             </div>
         </nav>
     </div>
-    <br />
-    <br />
-    <br />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -308,13 +322,17 @@
                 </div>
             </div>
         </div>
+        <a href="./calculadora.html" class="btn-voltar">
+            Voltar para a Calculadora
+        </a>
     </div>
     <br />
     <footer class="footer">
-        <p>MediCalculo - Sua assistente para controle de medicamentos</p>
+        <p>Calculadora de Medicamentos | MediCalculo</p>
         <p>Contato: faleconosco@medicalculo.com.br</p>
-        <p>Desenvolvido pensando no seu bem-estar por Ivan Monteiro de Oliveira</p>
-        <p>© 2025 Todos os direitos reservados.</p>
+        <p><a href="./PolíticadePrivacidade.html">Política de Privacidade</a></p>
+        <p>Desenvolvido por Ivan Monteiro de Oliveira</p>
+        <p>© 2025 - Todos os direitos reservados.</p>
     </footer>
 
     <script>
