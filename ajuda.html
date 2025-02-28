@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="styesheet" href="index.html">
     <link rel="stylesheet" href="faleconosco.html">
-    <meta name="description" content="Aprenda a usar nossa calculadora de medicamentos em 7 passos simples. Tutorial completo para controlar seus remédios sem complicação.">
-    <meta property="og:description" content="Guia prático e simples para usar a calculadora de medicamentos. Aprenda em minutos como controlar seus remédios de forma eficiente.">
+    <meta name="description"
+        content="Aprenda a usar nossa calculadora de medicamentos em 7 passos simples. Tutorial completo para controlar seus remédios sem complicação.">
+    <meta property="og:description"
+        content="Guia prático e simples para usar a calculadora de medicamentos. Aprenda em minutos como controlar seus remédios de forma eficiente.">
     <title>MediCalculo | Guia Rápido</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -243,7 +245,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="https://www.medicalculo.com.br/">Início</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="https://www.medicalculo.com.br/">Início</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./calculadora.html">Calculadora</a>
@@ -350,7 +353,8 @@
                 <div class="passo-numero">7</div>
                 <div class="passo-conteudo">
                     <h3>Receba o Resultado</h3>
-                    <p>Veja quando seu medicamento vai acabar e programe-se com antecedência para a próxima compra ou retirada no SUS.</p>
+                    <p>Veja quando seu medicamento vai acabar e programe-se com antecedência para a próxima compra ou
+                        retirada no SUS.</p>
                 </div>
             </div>
         </div>
@@ -370,7 +374,8 @@
             <ul>
                 <li>Sempre confira a prescrição médica antes de fazer o cálculo</li>
                 <li>Verifique se as unidades de medida estão corretas</li>
-                <li>O resultado mostrará a data final, dias da semana com todos os horários das doses durante o tratamento</li>
+                <li>O resultado mostrará a data final, dias da semana com todos os horários das doses durante o
+                    tratamento</li>
                 <li>Você verá também se sobrará medicamento ao final do tratamento</li>
                 <li>Use o botão "Limpar" para fazer um novo cálculo</li>
             </ul>
@@ -405,23 +410,23 @@
                 var imgWidth = 210 - 10; // Largura A4 menos 5 mm de cada lado
                 var pageHeight = 297 - 10; // Altura A4 menos 5 mm de cada lado
                 var imgHeight = canvas.height * imgWidth / canvas.width;
-    
+
                 let heightLeft = imgHeight;
-    
+
                 let position = 5; // Margem superior de 5 mm
                 const pageMargin = 5; // Margem entre páginas
-    
+
                 // Adiciona a imagem ao PDF, permitindo que ela passe para novas páginas
                 pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
                 heightLeft -= pageHeight;
-    
+
                 while (heightLeft >= 0) {
                     position = heightLeft - imgHeight + pageMargin; // Ajusta a posição para a nova página, com margem
                     pdf.addPage();
                     pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
                     heightLeft -= pageHeight;
                 }
-    
+
                 pdf.save('Tela_Ajuda.pdf');
             }).catch(function (error) {
                 console.error('Erro ao gerar o PDF:', error);
@@ -446,7 +451,11 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-
+    <script type="text/javascript">
+        var infolinks_pid = 3433503;
+        var infolinks_wsid = 0;
+    </script>
+    <script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script>
 </body>
 
 </html>
