@@ -469,6 +469,100 @@
                 <button type="button" class="btn-limpar" id="btnLimpar">Limpar</button>
                 <button type="submit" class="btn-calcular">Calcular</button>
             </div>
+            <div class="store-card">
+                <style>
+                    .store-card {
+                        max-width: 400px;
+                        margin: 20px auto;
+                        padding: 20px;
+                        background: white;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                        transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    }
+            
+                    .store-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+                    }
+            
+                    .store-image {
+                        width: 100%;
+                        height: auto;
+                        border-radius: 12px;
+                        margin-bottom: 20px;
+                        transition: opacity 0.2s ease;
+                    }
+            
+                    .store-image:hover {
+                        opacity: 0.9;
+                    }
+            
+                    .buy-button {
+                        width: 100%;
+                        padding: 14px 28px;
+                        background: linear-gradient(135deg, #2ecc71, #27ae60);
+                        color: white;
+                        border: none;
+                        border-radius: 12px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        text-decoration: none;
+                    }
+            
+                    .buy-button:hover {
+                        background: linear-gradient(135deg, #27ae60, #219a52);
+                        transform: scale(1.02);
+                    }
+            
+                    .buy-button svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+            
+                    @media (max-width: 480px) {
+                        .store-card {
+                            margin: 10px;
+                            padding: 15px;
+                        }
+            
+                        .buy-button {
+                            padding: 12px 20px;
+                            font-size: 15px;
+                        }
+                    }
+            
+                    /* Animação de pulso para o botão */
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                        100% { transform: scale(1); }
+                    }
+            
+                    .pulse-animation {
+                        animation: pulse 2s infinite;
+                    }
+                </style>
+            
+                <a href="https://www.paguemenos.com.br/loja?=medicalculo" target="_blank" style="display: block; text-decoration: none;">
+                    <img src="./img/logoLinkPgMenos.jpg" alt="Pague Menos" class="store-image">
+                </a>
+            
+                <a href="https://www.paguemenos.com.br/loja?=medicalculo" target="_blank" class="buy-button pulse-animation">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Comprar agora
+                </a>
+            </div>
         </form>
 
         <div id="resultado"></div>
