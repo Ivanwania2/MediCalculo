@@ -334,6 +334,55 @@
                 border: 1px solid #e2e8f0;
             }
         }
+        
+        /* Estilos do banner flutuante */
+        #floating-banner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        #floating-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #close-btn {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 16px;
+            color: #ffffff;
+            cursor: pointer;
+            background-color: #673dff;
+            border-radius: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #close-btn:hover {
+            background-color:#b38bff;
+        }
+
+        @media (max-width: 768px) {
+            #floating-banner {
+                width: 90%;
+                right: 5%;
+                bottom: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -405,6 +454,18 @@
     <br />
     <br />
     <br />
+    <div id="floating-banner">
+        <span id="close-btn" onclick="closeBanner()">&times; Fechar</span>
+        <a href="https://amzn.to/3DKGtAI" target="_blank">
+            <img src="./img/Banner.png" alt="Anúncio">
+        </a>
+    </div>
+
+    <script>
+        function closeBanner() {
+            document.getElementById('floating-banner').style.display = 'none';
+        }
+    </script>
     <div class="container">
         <div class="header">
             <h1>Calculadora de Medicamentos</h1>
