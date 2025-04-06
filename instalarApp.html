@@ -177,6 +177,119 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* Estilos para a janela flutuante */
+        .floating-popup {
+            position: fixed;
+            right: 20px;
+            bottom: -200px;
+            /* Começa abaixo da tela visível */
+            width: 300px;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: white;
+            transition: bottom 0.6s ease;
+            z-index: 1000;
+        }
+
+        .floating-popup.show {
+            bottom: 20px;
+            /* Posição final no bottom da tela */
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .popup-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .popup-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .support-btn {
+            display: block;
+            width: 100%;
+            background-color: #ffffff;
+            color: #3a7bd5;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .support-btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .popup-icon {
+            margin-right: 5px;
+        }
+
+        /* Animação de pulsação */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        /* Responsividade para celulares */
+        @media (max-width: 600px) {
+            .floating-popup {
+                width: 80%;
+                max-width: 280px;
+                right: 50%;
+                transform: translateX(50%);
+                bottom: -200px;
+            }
+
+            .floating-popup.show {
+                bottom: 10px;
+                right: 50%;
+                transform: translateX(50%);
+            }
+        }
     </style>
 </head>
 
@@ -433,35 +546,6 @@
                     height: auto;
                     display: block;
                 }
-
-                #close-btn {
-                    position: absolute;
-                    top: 5px;
-                    left: 10px;
-                    font-size: 16px;
-                    color: #ffffff;
-                    cursor: pointer;
-                    background-color: #673dff;
-                    border-radius: 20px;
-                    padding: 5px 10px;
-                    text-align: center;
-                    line-height: 1.5;
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-                }
-
-                #close-btn:hover {
-                    background-color: #b38bff;
-                }
-
-                @media (max-width: 768px) {
-                    #floating-banner {
-                        width: 90%;
-                        right: 5%;
-                        bottom: 10px;
-                    }
-                }
             </style>
 
             <a href="https://www.paguemenos.com.br/loja?=medicalculo" target="_blank"
@@ -485,18 +569,6 @@
         </a>
     </div>
     <br />
-    <div id="floating-banner">
-        <span id="close-btn" onclick="closeBanner()">&times; Fechar</span>
-        <a href="https://amzn.to/3DKGtAI" target="_blank">
-            <img src="./img/Banner.png" alt="Anúncio">
-        </a>
-    </div>
-
-    <script>
-        function closeBanner() {
-            document.getElementById('floating-banner').style.display = 'none';
-        }
-    </script>
     <footer class="footer">
         <p>Calculadora de Medicamentos | MediCalculo</p>
         <p>Contato: faleconosco@medicalculo.com.br</p>
@@ -551,6 +623,37 @@
     <script type="text/javascript">
         var infolinks_pid = 3433503;
         var infolinks_wsid = 0;
+    </script>
+    <div class="floating-popup" id="supportPopup">
+        <div class="popup-header">
+            <h3 class="popup-title">❤️ Apoie o MediCalculo</h3>
+            <button class="close-btn" id="closePopup">&times;</button>
+        </div>
+        <div class="popup-content">
+            Ajude a manter nossa calculadora gratuita comprando em nossas lojas afiliadas. Você recebe descontos
+            exclusivos e ainda contribui com nosso projeto!
+        </div>
+        <a href="./lojas.html" class="support-btn pulse" id="supportButton">
+            <span class="popup-icon">🛒</span> Comprar com desconto
+        </a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mostrar a janela após 5 segundos
+            setTimeout(function () {
+                document.getElementById('supportPopup').classList.add('show');
+            }, 5000);
+
+            // Fechar a janela quando o botão de fechar for clicado
+            document.getElementById('closePopup').addEventListener('click', function () {
+                document.getElementById('supportPopup').classList.remove('show');
+            });
+
+            // Link para afiliados
+            document.getElementById('supportButton').addEventListener('click', function () {
+                console.log('Botão de apoio clicado');
+            });
+        });
     </script>
 </body>
 
