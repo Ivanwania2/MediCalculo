@@ -228,13 +228,23 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             padding: 20px;
             color: white;
-            transition: bottom 0.6s ease;
+            transition: bottom 0.6s ease, opacity 0.6s ease;
+            /* Adicionado controle de opacidade */
+            opacity: 1;
+            /* Janela visível por padrão */
             z-index: 1000;
         }
 
         .floating-popup.show {
             bottom: 20px;
             /* Posição final no bottom da tela */
+        }
+
+        .floating-popup.hidden {
+            opacity: 0;
+            /* Reduz opacidade a zero para ocultar */
+            pointer-events: none;
+            /* Impede interação enquanto oculto */
         }
 
         .popup-header {
@@ -688,20 +698,20 @@
         </a>
     </div>
     <script>
+        // Script para manipular o desaparecimento total
         document.addEventListener('DOMContentLoaded', function () {
             // Mostrar a janela após 5 segundos
             setTimeout(function () {
                 document.getElementById('supportPopup').classList.add('show');
             }, 5000);
 
-            // Fechar a janela quando o botão de fechar for clicado
+            // Fechar a janela com transição ao clicar no botão
             document.getElementById('closePopup').addEventListener('click', function () {
-                document.getElementById('supportPopup').classList.remove('show');
-            });
-
-            // Link para afiliados
-            document.getElementById('supportButton').addEventListener('click', function () {
-                console.log('Botão de apoio clicado');
+                const popup = document.getElementById('supportPopup');
+                popup.classList.add('hidden'); // Adiciona classe para opacidade
+                setTimeout(() => {
+                    popup.classList.remove('show'); // Remove a classe "show" após a transição
+                }, 600); // Aguarda a transição (0.6s conforme definido no CSS)
             });
         });
     </script>
