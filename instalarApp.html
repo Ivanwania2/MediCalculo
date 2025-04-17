@@ -9,10 +9,6 @@
     <meta property="og:description"
         content="Nunca mais fique sem seus medicamentos. Calculadora gratuita que mostra exatamente quando seus remédios vão acabar e todos os horários de doses.">
     <title>MediCalculo | App</title>
-    <link rel="styesheet" href="index.html">
-    <link rel="styesheet" href="ajuda.html">
-    <link rel="styesheet" href="calculadora.html">
-    <link rel="stylesheet" href="faleconosco.html">
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./img/Logotipo.png">
     <link rel="apple-touch-icon" href="/img/Logotipo.png">
@@ -300,6 +296,112 @@
                 transform: translateX(50%);
             }
         }
+
+        .store-card {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .store-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: opacity 0.2s ease;
+        }
+
+        .store-image:hover {
+            opacity: 0.9;
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .buy-button:hover {
+            background: linear-gradient(135deg, #27ae60, #219a52);
+            transform: scale(1.02);
+        }
+
+        .buy-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .store-card {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .buy-button {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+        }
+
+        /* Animação de pulso para o botão */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* Estilos do banner flutuante */
+        #floating-banner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        #floating-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 
@@ -453,114 +555,6 @@
             </div>
         </div>
         <div class="store-card">
-            <style>
-                .store-card {
-                    max-width: 400px;
-                    margin: 20px auto;
-                    padding: 20px;
-                    background: white;
-                    border-radius: 16px;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-                    transition: transform 0.2s ease, box-shadow 0.2s ease;
-                }
-
-                .store-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-                }
-
-                .store-image {
-                    width: 100%;
-                    height: auto;
-                    border-radius: 12px;
-                    margin-bottom: 20px;
-                    transition: opacity 0.2s ease;
-                }
-
-                .store-image:hover {
-                    opacity: 0.9;
-                }
-
-                .buy-button {
-                    width: 100%;
-                    padding: 14px 28px;
-                    background: linear-gradient(135deg, #2ecc71, #27ae60);
-                    color: white;
-                    border: none;
-                    border-radius: 12px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 10px;
-                    text-decoration: none;
-                }
-
-                .buy-button:hover {
-                    background: linear-gradient(135deg, #27ae60, #219a52);
-                    transform: scale(1.02);
-                }
-
-                .buy-button svg {
-                    width: 20px;
-                    height: 20px;
-                }
-
-                @media (max-width: 480px) {
-                    .store-card {
-                        margin: 10px;
-                        padding: 15px;
-                    }
-
-                    .buy-button {
-                        padding: 12px 20px;
-                        font-size: 15px;
-                    }
-                }
-
-                /* Animação de pulso para o botão */
-                @keyframes pulse {
-                    0% {
-                        transform: scale(1);
-                    }
-
-                    50% {
-                        transform: scale(1.05);
-                    }
-
-                    100% {
-                        transform: scale(1);
-                    }
-                }
-
-                .pulse-animation {
-                    animation: pulse 2s infinite;
-                }
-
-                /* Estilos do banner flutuante */
-                #floating-banner {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    width: 300px;
-                    background-color: #fff;
-                    border: 1px solid #ccc;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    border-radius: 8px;
-                    overflow: hidden;
-                    z-index: 1000;
-                }
-
-                #floating-banner img {
-                    width: 100%;
-                    height: auto;
-                    display: block;
-                }
-            </style>
-
             <a href="https://www.paguemenos.com.br/loja?=medicalculo" target="_blank"
                 style="display: block; text-decoration: none;">
                 <img src="./img/logoLinkPgMenos.jpg" alt="Pague Menos" class="store-image">
