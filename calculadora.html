@@ -545,6 +545,10 @@
         /* Estilos para a tela de carregamento */
         #splash-screen {
             position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
             height: 100vh;
             background-color: #fff;
@@ -570,8 +574,12 @@
 <body>
     <!-- Tela de Carregamento -->
     <div id="splash-screen">
-        <img src="./img/Logotipomenor.png" alt="Ícone do Site">
-        <p>Carregando...</p>
+        <img src="./img/Logotipo.png" alt="Ícone do Site">
+        <br />
+        <br />
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
     </div>
     <div class="fixed-top">
         <nav class="navbar bg-body-tertiary">
