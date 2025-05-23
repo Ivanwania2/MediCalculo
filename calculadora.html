@@ -251,92 +251,6 @@
             }
         }
 
-        .store-card {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .store-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .store-image {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            transition: opacity 0.2s ease;
-        }
-
-        .store-image:hover {
-            opacity: 0.9;
-        }
-
-        .buy-button {
-            width: 100%;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .buy-button:hover {
-            background: linear-gradient(135deg, #27ae60, #219a52);
-            transform: scale(1.02);
-        }
-
-        .buy-button svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        @media (max-width: 480px) {
-            .store-card {
-                margin: 10px;
-                padding: 15px;
-            }
-
-            .buy-button {
-                padding: 12px 20px;
-                font-size: 15px;
-            }
-        }
-
-        /* Animação de pulso para o botão */
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-
         /* Footer */
         .footer {
             position: absolute;
@@ -435,137 +349,78 @@
         }
 
         @media print {
-            .tabela-horarios {
-                overflow-x: visible;
+            body * {
+                visibility: hidden;
             }
-
-            .tabela-horarios table {
+            #resultado, #resultado * {
+                visibility: visible;
+            }
+            #resultado {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
                 box-shadow: none;
-                border: 1px solid #e2e8f0;
             }
         }
 
-        /* Estilos para a janela flutuante */
-        .floating-popup {
-            position: fixed;
-            right: 20px;
-            bottom: -200px;
-            /* Começa abaixo da tela visível */
-            width: 300px;
-            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            color: white;
-            transition: bottom 0.6s ease, opacity 0.6s ease;
-            /* Adicionado controle de opacidade */
-            opacity: 1;
-            /* Janela visível por padrão */
-            z-index: 1000;
-        }
-
-        .floating-popup.show {
-            bottom: 20px;
-            /* Posição final no bottom da tela */
-        }
-
-        .floating-popup.hidden {
-            opacity: 0;
-            /* Reduz opacidade a zero para ocultar */
-            pointer-events: none;
-            /* Impede interação enquanto oculto */
-        }
-
-        .popup-header {
+        /* Estilos para os botões de ação */
+        .action-buttons {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
         }
 
-        .popup-title {
-            font-size: 18px;
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .close-btn:hover {
-            opacity: 1;
-        }
-
-        .popup-content {
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .support-btn {
-            display: block;
-            width: 100%;
-            background-color: #ffffff;
-            color: #3a7bd5;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            font-weight: bold;
-            text-align: center;
+            transition: all 0.3s ease;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
         }
 
-        .support-btn:hover {
-            background-color: #f0f0f0;
+        .print-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+        }
+
+        .print-btn:hover {
+            background: linear-gradient(135deg, #5a6fd1, #6a4199);
+            color: white;
             transform: translateY(-2px);
         }
 
-        .popup-icon {
-            margin-right: 5px;
+        .pdf-btn {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
         }
 
-        /* Animação de pulsação */
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
+        .pdf-btn:hover {
+            background: linear-gradient(135deg, #3ea76e, #2d8e5a);
+            color: white;
+            transform: translateY(-2px);
         }
 
-        .pulse {
-            animation: pulse 2s infinite ease-in-out;
+        .help-btn {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
         }
 
-        /* Responsividade para celulares */
-        @media (max-width: 600px) {
-            .floating-popup {
-                width: 80%;
-                max-width: 280px;
-                right: 50%;
-                transform: translateX(50%);
-                bottom: -200px;
-            }
-
-            .floating-popup.show {
-                bottom: 10px;
-                right: 50%;
-                transform: translateX(50%);
-            }
+        .help-btn:hover {
+            background: #e2e8f0;
+            color: #4a5568;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -613,9 +468,6 @@
                             <a class="nav-link" href="./instalarApp.html">Instalar App</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./lojas.html">Lojas</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="./ajuda.html">Ajuda</a>
                         </li>
                         <li class="nav-item">
@@ -650,11 +502,6 @@
     <br />
     <br />
     <br />
-    <script>
-        function closeBanner() {
-            document.getElementById('floating-banner').style.display = 'none';
-        }
-    </script>
     <div class="container">
         <div class="header">
             <h1>Calculadora de Medicamentos</h1>
@@ -663,6 +510,11 @@
             <div class="subtitle">Calculadora de Medicamentos Online</div>
         </div>
         <form id="calculadora">
+            <div class="form-group">
+                <label for="nomeMedicamento">Nome do Medicamento (opcional):</label>
+                <input type="text" id="nomeMedicamento" placeholder="Ex: Paracetamol 500mg">
+            </div>
+
             <div class="form-group">
                 <label for="tipoMedicamento">Tipo de Medicamento:</label>
                 <select id="tipoMedicamento" required>
@@ -721,76 +573,35 @@
             </div>
             <br />
         </form>
-        <div id="resultado"></div>
-        <div class="store-card">
-            <a href="https://www.paguemenos.com.br/loja?=medicalculo" target="_blank"
-                style="display: block; text-decoration: none;">
-                <img src="./img/logoLinkPgMenos.jpg" alt="Pague Menos" class="store-image">
-            </a>
-
-            <a href="https://www.paguemenos.com.br/loja?=medicalculo" target="_blank"
-                class="buy-button pulse-animation">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        
+        <!-- Botões de ação - agora permanentes -->
+        <div class="action-buttons">
+            <button onclick="window.print()" class="action-btn print-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
                 </svg>
-                Comprar agora
+                Imprimir
+            </button>
+            <button id="btnDownload" class="action-btn pdf-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+                Baixar PDF
+            </button>
+            <a href="./ajuda.html" class="action-btn help-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                </svg>
+                Ajuda
             </a>
         </div>
+        
+        <div id="resultado"></div>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <a href="./ajuda.html" type="button" class="btn btn-outline-light">Acessar Ajuda</a>
-    </div>
-    <br />
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <button onclick="window.print()" type="button" class="btn btn-outline-light">Imprimir</button>
-    </div>
-    <br />
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <button id="btnDownload" type="button" class="btn btn-outline-light">Baixar PDF</button>
-    </div>
-    <script>
-        document.getElementById('btnDownload').addEventListener('click', function () {
-            html2canvas(document.body, {
-                useCORS: true,
-                scale: 2,
-                logging: true,
-                onclone: function (clonedDoc) {
-                    clonedDoc.getElementById('btnDownload').style.display = 'none';
-                }
-            }).then(function (canvas) {
-                var imgData = canvas.toDataURL('image/png');
-                var { jsPDF } = window.jspdf;
-                var pdf = new jsPDF('p', 'mm', 'a4'); // Orientação retrato
-                var imgWidth = 210 - 10; // Largura A4 menos 5 mm de cada lado
-                var pageHeight = 297 - 10; // Altura A4 menos 5 mm de cada lado
-                var imgHeight = canvas.height * imgWidth / canvas.width;
-
-                let heightLeft = imgHeight;
-
-                let position = 5; // Margem superior de 5 mm
-                const pageMargin = 5; // Margem entre páginas
-
-                // Adiciona a imagem ao PDF, permitindo que ela passe para novas páginas
-                pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
-                heightLeft -= pageHeight;
-
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight + pageMargin; // Ajusta a posição para a nova página, com margem
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight); // Margem esquerda de 5 mm
-                    heightLeft -= pageHeight;
-                }
-
-                pdf.save('Tela_Calculadora.pdf');
-            }).catch(function (error) {
-                console.error('Erro ao gerar o PDF:', error);
-            });
-        });
-    </script>
-    <br />
+    
     <footer class="footer">
         <p>Calculadora de Medicamentos | MediCalculo</p>
         <p>Contato: faleconosco@medicalculo.com.br</p>
@@ -878,9 +689,20 @@
             }
         });
 
+        // Variáveis globais para armazenar os dados do cálculo
+        let currentCalculation = {
+            nomeMedicamento: '',
+            tipo: '',
+            dosagemPorVez: 0,
+            dosesPorDia: 0,
+            dataInicio: null,
+            horarios: []
+        };
+
         document.getElementById('calculadora').addEventListener('submit', function (e) {
             e.preventDefault();
 
+            const nomeMedicamento = document.getElementById('nomeMedicamento').value;
             const tipo = document.getElementById('tipoMedicamento').value;
             const quantidade = parseFloat(document.getElementById('quantidade').value);
             const dosagemPorVez = parseFloat(document.getElementById('dosagem').value);
@@ -891,7 +713,7 @@
             const dataInicio = new Date(dataInicioInput + 'T' + horaPrimeiraDose);
 
             if (!tipo || !horaPrimeiraDose) {
-                alert('Por favor, preencha todos os campos!');
+                alert('Por favor, preencha todos os campos obrigatórios!');
                 return;
             }
 
@@ -916,14 +738,28 @@
             // Gerar horários das doses
             const horarios = gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia);
 
+            // Armazenar dados para uso posterior
+            currentCalculation = {
+                nomeMedicamento: nomeMedicamento,
+                tipo: tipo,
+                dosagemPorVez: dosagemPorVez,
+                dosesPorDia: dosesPorDia,
+                dataInicio: dataInicio,
+                horarios: horarios
+            };
+
             const resultadoDiv = document.getElementById('resultado');
 
             let mensagem = '';
+            if (nomeMedicamento) {
+                mensagem += `<h3>${nomeMedicamento}</h3>`;
+            }
+            
             if (tipo === 'gota') {
-                mensagem = `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
+                mensagem += `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
                 mensagem += `tomando ${dosagemPorVez} gotas ${dosesPorDia}x ao dia (total de ${dosagemDiaria} gotas/dia), `;
             } else {
-                mensagem = `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
+                mensagem += `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
                 mensagem += `tomando ${dosagemPorVez} ${unidadesMedida[tipo].dosagem} ${dosesPorDia}x ao dia, `;
             }
 
@@ -1008,6 +844,47 @@
 
             return horarios;
         }
+
+        // Configuração do botão de PDF
+        document.getElementById('btnDownload').addEventListener('click', function () {
+            const resultadoDiv = document.getElementById('resultado');
+            
+            if (resultadoDiv.style.display === 'none') {
+                alert('Por favor, realize um cálculo primeiro.');
+                return;
+            }
+            
+            html2canvas(resultadoDiv, {
+                useCORS: true,
+                scale: 2,
+                logging: true
+            }).then(function (canvas) {
+                var imgData = canvas.toDataURL('image/png');
+                var { jsPDF } = window.jspdf;
+                var pdf = new jsPDF('p', 'mm', 'a4');
+                var imgWidth = 210 - 20; // Largura A4 menos margens
+                var pageHeight = 297 - 20; // Altura A4 menos margens
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+
+                let heightLeft = imgHeight;
+                let position = 10; // Margem superior
+
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight + 10;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                pdf.save('Calculadora_Medicamentos.pdf');
+            }).catch(function (error) {
+                console.error('Erro ao gerar o PDF:', error);
+                alert('Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.');
+            });
+        });
     </script>
 
     <div vw class="enabled">
@@ -1023,37 +900,6 @@
     <script type="text/javascript">
         var infolinks_pid = 3433503;
         var infolinks_wsid = 0;
-    </script>
-    <div class="floating-popup" id="supportPopup">
-        <div class="popup-header">
-            <h3 class="popup-title">❤️ Apoie o MediCalculo</h3>
-            <button class="close-btn" id="closePopup">&times;</button>
-        </div>
-        <div class="popup-content">
-            Ajude a manter nossa calculadora gratuita comprando em nossas lojas afiliadas. Você recebe descontos
-            exclusivos e ainda contribui com nosso projeto!
-        </div>
-        <a href="./lojas.html" class="support-btn pulse" id="supportButton">
-            <span class="popup-icon">🛒</span> Comprar com desconto
-        </a>
-    </div>
-    <script>
-        // Script para manipular o desaparecimento total
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mostrar a janela após 5 segundos
-            setTimeout(function () {
-                document.getElementById('supportPopup').classList.add('show');
-            }, 1000);
-
-            // Fechar a janela com transição ao clicar no botão
-            document.getElementById('closePopup').addEventListener('click', function () {
-                const popup = document.getElementById('supportPopup');
-                popup.classList.add('hidden'); // Adiciona classe para opacidade
-                setTimeout(() => {
-                    popup.classList.remove('show'); // Remove a classe "show" após a transição
-                }, 600); // Aguarda a transição (0.6s conforme definido no CSS)
-            });
-        });
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

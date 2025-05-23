@@ -258,9 +258,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./instalarApp.html">Instalar App</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./lojas.html">Lojas</a>
-                        </li>
+                    
                         <li class="nav-item">
                             <a class="nav-link" href="./ajuda.html">Ajuda</a>
                         </li>
@@ -439,37 +437,7 @@
         <p>Desenvolvido por Ivan Monteiro de Oliveira</p>
         <p>© 2025 - Todos os direitos reservados.</p>
     </footer>
-    <div class="floating-popup" id="supportPopup">
-        <div class="popup-header">
-            <h3 class="popup-title">❤️ Apoie o MediCalculo</h3>
-            <button class="close-btn" id="closePopup">&times;</button>
-        </div>
-        <div class="popup-content">
-            Ajude a manter nossa calculadora gratuita comprando em nossas lojas afiliadas. Você recebe descontos
-            exclusivos e ainda contribui com nosso projeto!
-        </div>
-        <a href="./lojas.html" class="support-btn pulse" id="supportButton">
-            <span class="popup-icon">🛒</span> Comprar com desconto
-        </a>
-    </div>
-    <script>
-        // Script para manipular o desaparecimento total
-        document.addEventListener('DOMContentLoaded', function () {
-            // Mostrar a janela após 5 segundos
-            setTimeout(function () {
-                document.getElementById('supportPopup').classList.add('show');
-            }, 1000);
 
-            // Fechar a janela com transição ao clicar no botão
-            document.getElementById('closePopup').addEventListener('click', function () {
-                const popup = document.getElementById('supportPopup');
-                popup.classList.add('hidden'); // Adiciona classe para opacidade
-                setTimeout(() => {
-                    popup.classList.remove('show'); // Remove a classe "show" após a transição
-                }, 600); // Aguarda a transição (0.6s conforme definido no CSS)
-            });
-        });
-    </script>
 </body>
 
 </html>
