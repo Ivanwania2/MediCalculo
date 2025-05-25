@@ -69,7 +69,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px auto;
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
@@ -100,6 +100,62 @@
             font-size: 1.1em;
         }
 
+        /* Estilos para múltiplos medicamentos */
+        .medicamentos-container {
+            margin-bottom: 30px;
+        }
+
+        .medicamento-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .medicamento-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .medicamento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .medicamento-titulo {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #4a5568;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-remover {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-remover:hover {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            transform: translateY(-2px);
+        }
+
         .form-group {
             margin-bottom: 25px;
             position: relative;
@@ -107,6 +163,18 @@
 
         .form-group.hidden {
             display: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         label {
@@ -167,11 +235,11 @@
             display: flex;
             gap: 15px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         button {
-            flex: 1;
-            padding: 15px;
+            padding: 15px 25px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -180,9 +248,22 @@
             transition: all 0.3s ease;
         }
 
+        .btn-adicionar {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-adicionar:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+
         .btn-calcular {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            flex: 2;
         }
 
         .btn-calcular:hover {
@@ -194,6 +275,7 @@
             background: #f7fafc;
             color: #4a5568;
             border: 2px solid #e2e8f0;
+            flex: 1;
         }
 
         .btn-limpar:hover {
@@ -228,52 +310,41 @@
             box-shadow: 0 4px 15px rgba(72, 187, 120, 0.2);
         }
 
+        .medicamento-resultado {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .medicamento-resultado h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .datas {
             margin-top: 20px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(102, 126, 234, 0.1);
             border-radius: 8px;
             font-size: 1.1em;
         }
 
-        @media (max-width: 640px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .buttons-container {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
-            }
-        }
-
-        /* Footer */
-        .footer {
-            position: absolute;
-            left: 0;
-            right: 0;
-            background: #2d3748;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            line-height: 1.0;
-        }
-
         .horarios-doses {
-            margin-top: 30px;
+            margin-top: 20px;
             background: #f8fafc;
             padding: 20px;
             border-radius: 10px;
         }
 
-        .horarios-doses h3 {
+        .horarios-doses h4 {
             color: #4a5568;
             margin-bottom: 15px;
             font-size: 1.2em;
@@ -289,6 +360,8 @@
             border-collapse: collapse;
             background: white;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .tabela-horarios th,
@@ -313,6 +386,22 @@
         }
 
         @media (max-width: 640px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
             .tabela-horarios {
                 font-size: 0.9em;
             }
@@ -323,50 +412,16 @@
             }
         }
 
-        /* Estilos adicionais para melhorar a apresentação */
-        .resultado {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .sucesso {
-            border-left: 4px solid #48bb78;
-        }
-
-        .datas {
-            margin: 15px 0;
-            padding: 15px;
-            background: #f7fafc;
-            border-radius: 6px;
-            line-height: 1.8;
-        }
-
-        /* Melhorias de acessibilidade e usabilidade */
-        @media (prefers-reduced-motion: reduce) {
-            .tabela-horarios tr:hover {
-                background: inherit;
-            }
-        }
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #resultado, #resultado * {
-                visibility: visible;
-            }
-            #resultado {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background: white;
-                padding: 20px;
-                box-shadow: none;
-            }
+        /* Footer */
+        .footer {
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: #2d3748;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            line-height: 1.0;
         }
 
         /* Estilos para os botões de ação */
@@ -424,6 +479,119 @@
             background: #e2e8f0;
             color: #4a5568;
             transform: translateY(-2px);
+        }
+
+        /* Estilos específicos para impressão */
+        @media print {
+            /* Oculta todos os elementos da página */
+            body * {
+                visibility: hidden;
+            }
+            
+            /* Mostra apenas o resultado e seus filhos */
+            #resultado, 
+            #resultado * {
+                visibility: visible !important;
+            }
+            
+            /* Remove estilos de navegação e interface */
+            .fixed-top,
+            .action-buttons,
+            .buttons-container,
+            .footer,
+            #splash-screen,
+            .navbar {
+                display: none !important;
+            }
+            
+            /* Posicionamento do resultado na impressão */
+            #resultado {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                background: white !important;
+                padding: 20px !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                color: black !important;
+            }
+            
+            /* Estilos para os títulos dos medicamentos na impressão */
+            .medicamento-resultado h3 {
+                color: black !important;
+                background: none !important;
+                -webkit-text-fill-color: black !important;
+                font-weight: bold !important;
+                margin-bottom: 15px !important;
+                font-size: 1.4em !important;
+            }
+            
+            /* Estilos para as tabelas na impressão */
+            .tabela-horarios table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                margin-top: 10px !important;
+            }
+            
+            .tabela-horarios th {
+                background: #f0f0f0 !important;
+                color: black !important;
+                border: 1px solid black !important;
+                padding: 8px !important;
+            }
+            
+            .tabela-horarios td {
+                color: black !important;
+                border: 1px solid black !important;
+                padding: 8px !important;
+            }
+            
+            /* Estilos para as datas na impressão */
+            .datas {
+                background: #f9f9f9 !important;
+                color: black !important;
+                border: 1px solid #ccc !important;
+                padding: 10px !important;
+                margin: 10px 0 !important;
+            }
+            
+            /* Garantir que os medicamentos sejam exibidos corretamente */
+            .medicamento-resultado {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                border-radius: 0 !important;
+                padding: 20px !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+            
+            /* Quebra de página para medicamentos muito longos */
+            .medicamento-resultado:not(:last-child) {
+                page-break-after: auto;
+            }
+            
+            /* Estilos para horários das doses */
+            .horarios-doses {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                padding: 15px !important;
+                margin-top: 15px !important;
+            }
+            
+            .horarios-doses h4 {
+                color: black !important;
+                font-weight: bold !important;
+                margin-bottom: 10px !important;
+            }
+        }
+
+        /* Estilos para melhorar a apresentação */
+        @media (prefers-reduced-motion: reduce) {
+            .tabela-horarios tr:hover {
+                background: inherit;
+            }
         }
     </style>
 </head>
@@ -512,74 +680,23 @@
             <br />
             <div class="subtitle">Calculadora de Medicamentos Online</div>
         </div>
+        
         <form id="calculadora">
-            <div class="form-group">
-                <label for="nomeMedicamento">Nome do Medicamento (opcional):</label>
-                <input type="text" id="nomeMedicamento" placeholder="Ex: Paracetamol 500mg">
+            <div class="medicamentos-container" id="medicamentosContainer">
+                <!-- Medicamentos serão adicionados aqui dinamicamente -->
             </div>
 
-            <div class="form-group">
-                <label for="tipoMedicamento">Tipo de Medicamento:</label>
-                <select id="tipoMedicamento" required>
-                    <option value="">Selecione o tipo</option>
-                    <option value="comprimido">Comprimido</option>
-                    <option value="capsula">Cápsula</option>
-                    <option value="solucao">Solução</option>
-                    <option value="gota">Gota</option>
-                    <option value="supositorio">Supositório</option>
-                    <option value="ampola">Ampola</option>
-                    <option value="adesivo">Adesivo Transdérmico</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="quantidade">Quantidade Total (Caixa/Frasco):</label>
-                <div class="input-group">
-                    <input type="number" id="quantidade" required min="0" step="any">
-                    <span class="unidade" id="unidadeQuantidade">-</span>
-                </div>
-            </div>
-
-            <div class="form-group hidden" id="gotasPorMl">
-                <label for="fatorGotas">Gotas por mL:</label>
-                <div class="input-group">
-                    <input type="number" id="fatorGotas" value="20" min="1">
-                    <span class="unidade">gotas/mL</span>
-                </div>
-                <div class="info-texto">✨ Padrão: 20 gotas = 1 mL (verifique na bula do medicamento)</div>
-            </div>
-
-            <div class="form-group">
-                <label for="dosagem">Dosagem por vez:</label>
-                <div class="input-group">
-                    <input type="number" id="dosagem" required min="0" step="any">
-                    <span class="unidade" id="unidadeDosagem">-</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="dosesPorDia">Doses por dia:</label>
-                <input type="number" id="dosesPorDia" required min="1" value="1">
-            </div>
-
-            <div class="form-group">
-                <label for="dataInicio">Data de Início:</label>
-                <input type="date" id="dataInicio" required>
-            </div>
-            <div class="form-group">
-                <label for="horaPrimeiraDose">Horário da Primeira Dose:</label>
-                <input type="time" id="horaPrimeiraDose" name="horaPrimeiraDose" required class="form-control">
-            </div>
             <div class="buttons-container">
-                <button type="button" class="btn-limpar" id="btnLimpar">Limpar</button>
-                <button type="submit" class="btn-calcular">Calcular</button>
+                <button type="button" class="btn-adicionar" id="btnAdicionar">+ Adicionar Medicamento</button>
+                <button type="button" class="btn-limpar" id="btnLimpar">Limpar Todos</button>
+                <button type="submit" class="btn-calcular">Calcular Todos</button>
             </div>
             <br />
         </form>
         
         <!-- Botões de ação - agora permanentes -->
         <div class="action-buttons">
-            <button onclick="window.print()" class="action-btn print-btn">
+            <button onclick="imprimirResultado()" class="action-btn print-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
                     <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
@@ -617,19 +734,6 @@
         crossorigin="anonymous"></script>
 
     <script>
-        // Adiciona a função de limpar
-        document.getElementById('btnLimpar').addEventListener('click', function () {
-            document.getElementById('calculadora').reset();
-            document.getElementById('resultado').style.display = 'none';
-
-            // Reseta as unidades
-            document.getElementById('unidadeQuantidade').textContent = '-';
-            document.getElementById('unidadeDosagem').textContent = '-';
-
-            // Esconde o campo de gotas
-            document.getElementById('gotasPorMl').classList.add('hidden');
-        });
-
         // Configuração das unidades de medida para cada tipo de medicamento
         const unidadesMedida = {
             comprimido: {
@@ -662,18 +766,114 @@
             },
         };
 
-        // Configura a data mínima como hoje
-        const hoje = new Date();
-        const dataFormatada = hoje.toISOString().split('T')[0];
-        document.getElementById('dataInicio').min = dataFormatada;
-        document.getElementById('dataInicio').value = dataFormatada;
+        // Variáveis globais
+        let medicamentoCounter = 0;
+        let currentCalculations = [];
 
-        // Atualiza as unidades quando o tipo de medicamento é alterado
-        document.getElementById('tipoMedicamento').addEventListener('change', function () {
-            const tipo = this.value;
-            const unidadeQuantidade = document.getElementById('unidadeQuantidade');
-            const unidadeDosagem = document.getElementById('unidadeDosagem');
-            const gotasPorMl = document.getElementById('gotasPorMl');
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            adicionarMedicamento(); // Adiciona o primeiro medicamento
+        });
+
+        // Função para adicionar um novo medicamento
+        function adicionarMedicamento() {
+            medicamentoCounter++;
+            const container = document.getElementById('medicamentosContainer');
+            
+            const hoje = new Date();
+            const dataFormatada = hoje.toISOString().split('T')[0];
+            
+            const medicamentoHTML = `
+                <div class="medicamento-card" id="medicamento${medicamentoCounter}">
+                    <div class="medicamento-header">
+                        <div class="medicamento-titulo">Medicamento ${medicamentoCounter}</div>
+                        ${medicamentoCounter > 1 ? `<button type="button" class="btn-remover" onclick="removerMedicamento(${medicamentoCounter})">Remover</button>` : ''}
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nomeMedicamento${medicamentoCounter}">Nome do Medicamento (opcional):</label>
+                            <input type="text" id="nomeMedicamento${medicamentoCounter}" placeholder="Ex: Paracetamol 500mg">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoMedicamento${medicamentoCounter}">Tipo de Medicamento:</label>
+                            <select id="tipoMedicamento${medicamentoCounter}" required onchange="atualizarUnidades(${medicamentoCounter})">
+                                <option value="">Selecione o tipo</option>
+                                <option value="comprimido">Comprimido</option>
+                                <option value="capsula">Cápsula</option>
+                                <option value="solucao">Solução</option>
+                                <option value="gota">Gota</option>
+                                <option value="supositorio">Supositório</option>
+                                <option value="ampola">Ampola</option>
+                                <option value="adesivo">Adesivo Transdérmico</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantidade${medicamentoCounter}">Quantidade Total (Caixa/Frasco):</label>
+                            <div class="input-group">
+                                <input type="number" id="quantidade${medicamentoCounter}" required min="0" step="any">
+                                <span class="unidade" id="unidadeQuantidade${medicamentoCounter}">-</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dosagem${medicamentoCounter}">Dosagem por vez:</label>
+                            <div class="input-group">
+                                <input type="number" id="dosagem${medicamentoCounter}" required min="0" step="any">
+                                <span class="unidade" id="unidadeDosagem${medicamentoCounter}">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="gotasPorMl${medicamentoCounter}">
+                        <label for="fatorGotas${medicamentoCounter}">Gotas por mL:</label>
+                        <div class="input-group">
+                            <input type="number" id="fatorGotas${medicamentoCounter}" value="20" min="1">
+                            <span class="unidade">gotas/mL</span>
+                        </div>
+                        <div class="info-texto">✨ Padrão: 20 gotas = 1 mL (verifique na bula do medicamento)</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dosesPorDia${medicamentoCounter}">Doses por dia:</label>
+                            <input type="number" id="dosesPorDia${medicamentoCounter}" required min="1" value="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dataInicio${medicamentoCounter}">Data de Início:</label>
+                            <input type="date" id="dataInicio${medicamentoCounter}" required min="${dataFormatada}" value="${dataFormatada}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="horaPrimeiraDose${medicamentoCounter}">Horário da Primeira Dose:</label>
+                        <input type="time" id="horaPrimeiraDose${medicamentoCounter}" required class="form-control">
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', medicamentoHTML);
+        }
+
+        // Função para remover medicamento
+        function removerMedicamento(id) {
+            const medicamento = document.getElementById(`medicamento${id}`);
+            if (medicamento) {
+                medicamento.remove();
+            }
+        }
+
+        // Função para atualizar unidades
+        function atualizarUnidades(id) {
+            const tipo = document.getElementById(`tipoMedicamento${id}`).value;
+            const unidadeQuantidade = document.getElementById(`unidadeQuantidade${id}`);
+            const unidadeDosagem = document.getElementById(`unidadeDosagem${id}`);
+            const gotasPorMl = document.getElementById(`gotasPorMl${id}`);
 
             if (tipo && unidadesMedida[tipo]) {
                 unidadeQuantidade.textContent = unidadesMedida[tipo].quantidade;
@@ -690,137 +890,166 @@
                 unidadeDosagem.textContent = '-';
                 gotasPorMl.classList.add('hidden');
             }
-        });
+        }
 
-        // Variáveis globais para armazenar os dados do cálculo
-        let currentCalculation = {
-            nomeMedicamento: '',
-            tipo: '',
-            dosagemPorVez: 0,
-            dosesPorDia: 0,
-            dataInicio: null,
-            horarios: []
-        };
+        // Função customizada para impressão
+        function imprimirResultado() {
+            const resultadoDiv = document.getElementById('resultado');
+            
+            if (resultadoDiv.style.display === 'none') {
+                alert('Por favor, realize um cálculo primeiro.');
+                return;
+            }
+            
+            // Usar a função nativa de impressão do navegador
+            window.print();
+        }
+
+        // Event listeners
+        document.getElementById('btnAdicionar').addEventListener('click', adicionarMedicamento);
+
+        document.getElementById('btnLimpar').addEventListener('click', function () {
+            document.getElementById('medicamentosContainer').innerHTML = '';
+            medicamentoCounter = 0;
+            adicionarMedicamento();
+            document.getElementById('resultado').style.display = 'none';
+        });
 
         document.getElementById('calculadora').addEventListener('submit', function (e) {
             e.preventDefault();
-
-            const nomeMedicamento = document.getElementById('nomeMedicamento').value;
-            const tipo = document.getElementById('tipoMedicamento').value;
-            const quantidade = parseFloat(document.getElementById('quantidade').value);
-            const dosagemPorVez = parseFloat(document.getElementById('dosagem').value);
-            const dosesPorDia = parseInt(document.getElementById('dosesPorDia').value);
-            const dataInicioInput = document.getElementById('dataInicio').value;
-            const horaPrimeiraDose = document.getElementById('horaPrimeiraDose').value;
-
-            const dataInicio = new Date(dataInicioInput + 'T' + horaPrimeiraDose);
-
-            if (!tipo || !horaPrimeiraDose) {
-                alert('Por favor, preencha todos os campos obrigatórios!');
-                return;
-            }
-
-            let dosagemDiaria = dosagemPorVez * dosesPorDia;
-            let quantidadeTotal = quantidade;
-            let dias;
-            let resto;
-
-            if (tipo === 'gota') {
-                const gotasPorMl = parseFloat(document.getElementById('fatorGotas').value);
-                quantidadeTotal = quantidade * gotasPorMl;
-                dias = Math.floor(quantidadeTotal / dosagemDiaria);
-                resto = quantidadeTotal % dosagemDiaria;
-            } else {
-                dias = Math.floor(quantidade / dosagemDiaria);
-                resto = quantidade % dosagemDiaria;
-            }
-
-            const dataFinal = new Date(dataInicio);
-            dataFinal.setDate(dataInicio.getDate() + dias - 1);
-
-            // Gerar horários das doses
-            const horarios = gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia);
-
-            // Armazenar dados para uso posterior
-            currentCalculation = {
-                nomeMedicamento: nomeMedicamento,
-                tipo: tipo,
-                dosagemPorVez: dosagemPorVez,
-                dosesPorDia: dosesPorDia,
-                dataInicio: dataInicio,
-                horarios: horarios
-            };
-
-            const resultadoDiv = document.getElementById('resultado');
-
-            let mensagem = '';
-            if (nomeMedicamento) {
-                mensagem += `<h3>${nomeMedicamento}</h3>`;
-            }
             
-            if (tipo === 'gota') {
-                mensagem += `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
-                mensagem += `tomando ${dosagemPorVez} gotas ${dosesPorDia}x ao dia (total de ${dosagemDiaria} gotas/dia), `;
-            } else {
-                mensagem += `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
-                mensagem += `tomando ${dosagemPorVez} ${unidadesMedida[tipo].dosagem} ${dosesPorDia}x ao dia, `;
-            }
+            const medicamentos = document.querySelectorAll('.medicamento-card');
+            currentCalculations = [];
+            let resultadoHTML = '';
 
-            mensagem += `o medicamento durará ${dias} dia(s)`;
+            medicamentos.forEach((medicamentoCard, index) => {
+                const id = medicamentoCard.id.replace('medicamento', '');
+                
+                const nomeMedicamento = document.getElementById(`nomeMedicamento${id}`).value;
+                const tipo = document.getElementById(`tipoMedicamento${id}`).value;
+                const quantidade = parseFloat(document.getElementById(`quantidade${id}`).value);
+                const dosagemPorVez = parseFloat(document.getElementById(`dosagem${id}`).value);
+                const dosesPorDia = parseInt(document.getElementById(`dosesPorDia${id}`).value);
+                const dataInicioInput = document.getElementById(`dataInicio${id}`).value;
+                const horaPrimeiraDose = document.getElementById(`horaPrimeiraDose${id}`).value;
 
-            if (resto > 0) {
-                if (tipo === 'gota') {
-                    mensagem += ` e sobrarão ${resto.toFixed(0)} gotas`;
-                } else {
-                    mensagem += ` e sobrarão ${resto.toFixed(2)} ${unidadesMedida[tipo].quantidade}`;
+                if (!tipo || !horaPrimeiraDose || !quantidade || !dosagemPorVez || !dosesPorDia) {
+                    alert(`Por favor, preencha todos os campos obrigatórios do Medicamento ${parseInt(id)}!`);
+                    return;
                 }
+
+                const dataInicio = new Date(dataInicioInput + 'T' + horaPrimeiraDose);
+
+                let dosagemDiaria = dosagemPorVez * dosesPorDia;
+                let quantidadeTotal = quantidade;
+                let dias;
+                let resto;
+
+                if (tipo === 'gota') {
+                    const gotasPorMl = parseFloat(document.getElementById(`fatorGotas${id}`).value);
+                    quantidadeTotal = quantidade * gotasPorMl;
+                    dias = Math.floor(quantidadeTotal / dosagemDiaria);
+                    resto = quantidadeTotal % dosagemDiaria;
+                } else {
+                    dias = Math.floor(quantidade / dosagemDiaria);
+                    resto = quantidade % dosagemDiaria;
+                }
+
+                const dataFinal = new Date(dataInicio);
+                dataFinal.setDate(dataInicio.getDate() + dias - 1);
+
+                // Gerar horários das doses
+                const horarios = gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia);
+
+                // Armazenar cálculo
+                currentCalculations.push({
+                    nomeMedicamento: nomeMedicamento,
+                    tipo: tipo,
+                    dosagemPorVez: dosagemPorVez,
+                    dosesPorDia: dosesPorDia,
+                    dataInicio: dataInicio,
+                    horarios: horarios
+                });
+
+                // Gerar HTML do resultado
+                let mensagem = `<div class="medicamento-resultado">`;
+                
+                if (nomeMedicamento) {
+                    mensagem += `<h3>${nomeMedicamento}</h3>`;
+                } else {
+                    mensagem += `<h3>Medicamento ${parseInt(id)}</h3>`;
+                }
+                
+                if (tipo === 'gota') {
+                    mensagem += `Com ${quantidade} mL (${quantidadeTotal.toFixed(0)} gotas), `;
+                    mensagem += `tomando ${dosagemPorVez} gotas ${dosesPorDia}x ao dia (total de ${dosagemDiaria} gotas/dia), `;
+                } else {
+                    mensagem += `Com ${quantidade} ${unidadesMedida[tipo].quantidade}, `;
+                    mensagem += `tomando ${dosagemPorVez} ${unidadesMedida[tipo].dosagem} ${dosesPorDia}x ao dia, `;
+                }
+
+                mensagem += `o medicamento durará ${dias} dia(s)`;
+
+                if (resto > 0) {
+                    if (tipo === 'gota') {
+                        mensagem += ` e sobrarão ${resto.toFixed(0)} gotas`;
+                    } else {
+                        mensagem += ` e sobrarão ${resto.toFixed(2)} ${unidadesMedida[tipo].quantidade}`;
+                    }
+                }
+
+                mensagem += '.';
+
+                const opcoesData = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+
+                mensagem += `<div class="datas">
+                    <strong>Data de Início:</strong> ${dataInicio.toLocaleDateString('pt-BR', opcoesData)}<br>
+                    <strong>Data Final:</strong> ${dataFinal.toLocaleDateString('pt-BR', opcoesData)}
+                </div>`;
+
+                // Adicionar tabela de horários
+                mensagem += `
+                    <div class="horarios-doses">
+                        <h4>Horários das Doses</h4>
+                        <div class="tabela-horarios">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Dia da Semana</th>
+                                        <th>Horário</th>
+                                        <th>Dose</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${horarios.map(h => `
+                                        <tr>
+                                            <td>${h.data.toLocaleDateString('pt-BR')}</td>
+                                            <td>${h.data.toLocaleDateString('pt-BR', { weekday: 'long' })}</td>
+                                            <td>${h.hora}</td>
+                                            <td>${dosagemPorVez} ${unidadesMedida[tipo].dosagem}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+
+                resultadoHTML += mensagem;
+            });
+
+            if (resultadoHTML) {
+                const resultadoDiv = document.getElementById('resultado');
+                resultadoDiv.innerHTML = resultadoHTML;
+                resultadoDiv.className = 'sucesso';
+                resultadoDiv.style.display = 'block';
             }
-
-            mensagem += '.<br><br>';
-
-            const opcoesData = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-
-            mensagem += `<div class="datas">
-        <strong>Data de Início:</strong> ${dataInicio.toLocaleDateString('pt-BR', opcoesData)}<br>
-        <strong>Data Final:</strong> ${dataFinal.toLocaleDateString('pt-BR', opcoesData)}
-    </div>`;
-
-            // Adicionar tabela de horários
-            mensagem += `
-    <div class="horarios-doses">
-        <h3>Horários das Doses</h3>
-        <div class="tabela-horarios">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Dia da Semana</th>
-                        <th>Horário</th>
-                        <th>Dose</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${horarios.map(h => `
-                        <tr>
-                            <td>${h.data.toLocaleDateString('pt-BR')}</td>
-                            <td>${h.data.toLocaleDateString('pt-BR', { weekday: 'long' })}</td>
-                            <td>${h.hora}</td>
-                            <td>${dosagemPorVez} ${unidadesMedida[tipo].dosagem}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        </div>
-    </div>`;
-
-            resultadoDiv.innerHTML = mensagem;
-            resultadoDiv.className = 'sucesso';
-            resultadoDiv.style.display = 'block';
         });
 
         function gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia) {
@@ -882,7 +1111,7 @@
                     heightLeft -= pageHeight;
                 }
 
-                pdf.save('Calculadora_Medicamentos.pdf');
+                pdf.save('Calculadora_Medicamentos_Multiplos.pdf');
             }).catch(function (error) {
                 console.error('Erro ao gerar o PDF:', error);
                 alert('Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.');
