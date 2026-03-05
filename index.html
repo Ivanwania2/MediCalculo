@@ -674,7 +674,7 @@
             <div class="video-container">
                 <video id="meuVideo" muted playsinline>
                     <!-- ATENÇÃO: VERIFIQUE SE ESTE CAMINHO ESTÁ CORRETO -->
-                    <source src="videos/CarregadorPowerBank.mp4" type="video/mp4">
+                    <source src="videos/Carregador.mp4" type="video/mp4">
                     Seu navegador não suporta vídeo HTML5.
                 </video>
 
@@ -828,7 +828,7 @@
             console.log('✅ Página carregada, iniciando configuração da janela...');
 
             // === CONFIGURAÇÕES ===
-            const VIDEO_PATH = 'videos/CarregadorPowerBank.mp4';
+            const VIDEO_PATH = 'videos/Carregador.mp4';
             const SHOW_DELAY = 2000; // 2 segundos para garantir
             const STORAGE_KEY = 'videoModalClosed';
 
@@ -931,7 +931,15 @@
             console.log('🚀 Configuração completa!');
             console.log('💡 Dica: Abra o console (F12) para ver mais mensagens');
         });
+
+        // FUNÇÃO DE TESTE MANUAL
+        window.forcarAbrirModal = function () {
+            console.log('🔄 Forçando abertura do modal...');
+            localStorage.removeItem('videoModalClosed');
+            location.reload();
+        };
     </script>
+    </div>
 </body>
 
 </html>
