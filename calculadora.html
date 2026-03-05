@@ -677,8 +677,8 @@
     <div class="container">
         <div class="header">
             <h1>Dose de Medicamentos</h1>
-            <a href="https://www.medicalculo.com.br"
-                target="_blank"> <img src="img/Logotipomenor.png" class="img-fluid mx-auto d-block img-thumbnail" alt="Logo Medicalculo"> </a>
+            <a href="https://www.medicalculo.com.br" target="_blank"> <img src="img/Logotipomenor.png"
+                    class="img-fluid mx-auto d-block img-thumbnail" alt="Logo Medicalculo"> </a>
             <br />
             <div class="subtitle">Calculadora de Medicamentos Online</div>
         </div>
@@ -694,8 +694,9 @@
                 <button type="submit" class="btn-calcular">Calcular Todos</button>
             </div>
             <br />
-            <a href="https://ev.braip.com/ref?pl=pla9rlnq&ck=che1686j&af=afilx38xqe"
-                target="_blank"> <img src="./img/Lizzantenutritopo.png" class="img-fluid mx-auto d-block img-thumbnail" alt="Anuncio Lizzantenutri"> </a>
+            <a href="https://ev.braip.com/ref?pl=pla9rlnq&ck=che1686j&af=afilx38xqe" target="_blank"> <img
+                    src="./img/Lizzantenutritopo.png" class="img-fluid mx-auto d-block img-thumbnail"
+                    alt="Anuncio Lizzantenutri"> </a>
             <br />
         </form>
 
@@ -1145,6 +1146,276 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('splash-screen').style.display = 'none';
+        });
+    </script>
+    <!-- Janela Flutuante de Vídeo - VERSÃO COM DEBUG -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <!-- Cabeçalho com botão fechar -->
+            <div class="modal-header">
+                <span class="close-btn">&times;</span>
+            </div>
+
+            <!-- Container do vídeo com botão sobreposto -->
+            <div class="video-container">
+                <video id="meuVideo" muted playsinline>
+                    <!-- ATENÇÃO: VERIFIQUE SE ESTE CAMINHO ESTÁ CORRETO -->
+                    <source src="videos/CarregadorPowerBank.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeo HTML5.
+                </video>
+
+                <!-- Botão de afiliado Shopee -->
+                <a href="https://s.shopee.com.br/9zsmDZnJay" target="_blank" rel="noopener noreferrer"
+                    class="shopee-btn-overlay">
+                    🛒 Comprar na Shopee
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* ESTILOS DA JANELA FLUTUANTE */
+        .modal {
+            display: none;
+            /* Importante: começa escondido */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 85%;
+            max-width: 320px;
+            background: transparent;
+            border-radius: 16px;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            z-index: 10;
+        }
+
+        .close-btn {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.6);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #ee4d2d;
+            color: white;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.78%;
+            /* 9:16 Aspect Ratio */
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* BOTÃO SOBREPOSTO - 10px */
+        .shopee-btn-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ee4d2d;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 40px;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            z-index: 5;
+            transition: all 0.3s;
+        }
+
+        .shopee-btn-overlay:hover {
+            background: #d43f21;
+            transform: translateX(-50%) scale(1.05);
+            border-color: white;
+        }
+
+        /* Responsividade */
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 90%;
+                max-width: 280px;
+            }
+
+            .shopee-btn-overlay {
+                font-size: 13px;
+                padding: 8px 20px;
+                bottom: 8px;
+                white-space: normal;
+                width: 80%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .shopee-btn-overlay {
+                bottom: 5px;
+                font-size: 12px;
+                padding: 6px 15px;
+            }
+        }
+    </style>
+
+    <script>
+        // VERSÃO CORRIGIDA E TESTADA
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('✅ Página carregada, iniciando configuração da janela...');
+
+            // === CONFIGURAÇÕES ===
+            const VIDEO_PATH = 'videos/CarregadorPowerBank.mp4';
+            const SHOW_DELAY = 2000; // 2 segundos para garantir
+            const STORAGE_KEY = 'videoModalClosed';
+
+            // === OBTÉM ELEMENTOS ===
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('meuVideo');
+            const closeBtn = document.querySelector('.close-btn');
+
+            // === VERIFICA SE OS ELEMENTOS EXISTEM ===
+            if (!modal) {
+                console.error('❌ ERRO: Elemento modal não encontrado!');
+                return;
+            }
+
+            if (!video) {
+                console.error('❌ ERRO: Elemento video não encontrado!');
+                return;
+            }
+
+            console.log('✅ Elementos encontrados:', { modal, video, closeBtn });
+
+            // === RESET FORÇADO PARA TESTE (COMENTE APÓS TESTAR) ===
+            // localStorage.removeItem(STORAGE_KEY); // Descomente para testar
+
+            // === VERIFICA O LOCALSTORAGE ===
+            const modalClosed = localStorage.getItem(STORAGE_KEY);
+            console.log('📦 localStorage.getItem("videoModalClosed"):', modalClosed);
+
+            // === FUNÇÃO PARA MOSTRAR MODAL ===
+            function showModal() {
+                console.log('⏰ Tentando abrir modal...');
+
+                if (!localStorage.getItem(STORAGE_KEY)) {
+                    console.log('✅ Modal pode abrir (não foi fechado antes)');
+                    modal.style.display = 'block';
+                    console.log('✅ Modal aberto!');
+
+                    // Tenta reproduzir vídeo
+                    setTimeout(() => {
+                        video.play().then(() => {
+                            console.log('▶️ Vídeo reproduzindo automaticamente');
+                        }).catch(error => {
+                            console.log('⚠️ Auto-play bloqueado:', error);
+                            // Não é erro, é normal do navegador
+                        });
+                    }, 500);
+                } else {
+                    console.log('❌ Modal não abre (já foi fechado antes)');
+                }
+            }
+
+            // === FUNÇÃO PARA FECHAR MODAL ===
+            function closeModal() {
+                console.log('🔒 Fechando modal...');
+                modal.style.display = 'none';
+
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+
+                localStorage.setItem(STORAGE_KEY, 'true');
+                console.log('✅ Modal fechado e salvo no localStorage');
+            }
+
+            // === ABRE O MODAL APÓS O DELAY ===
+            console.log(`⏱️ Aguardando ${SHOW_DELAY / 1000} segundos para abrir...`);
+            setTimeout(showModal, SHOW_DELAY);
+
+            // === EVENTO DE CLIQUE NO BOTÃO FECHAR ===
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    closeModal();
+                });
+                console.log('✅ Evento de clique adicionado ao botão fechar');
+            }
+
+            // === FECHA AO CLICAR FORA ===
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // === PREVINE FECHAR AO CLICAR DENTRO ===
+            if (modal) {
+                modal.querySelector('.modal-content').addEventListener('click', function (event) {
+                    event.stopPropagation();
+                });
+            }
+
+            // === FECHA COM TECLA ESC ===
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modal.style.display === 'block') {
+                    closeModal();
+                }
+            });
+
+            console.log('🚀 Configuração completa!');
+            console.log('💡 Dica: Abra o console (F12) para ver mais mensagens');
         });
     </script>
 </body>
