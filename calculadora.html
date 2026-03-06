@@ -1148,7 +1148,8 @@
             document.getElementById('splash-screen').style.display = 'none';
         });
     </script>
-    <!-- Janela Flutuante de Vídeo - VERSÃO COM DEBUG -->
+
+    <!-- Janela Flutuante de Vídeo - VERSÃO FINAL (SEM BOTÃO DE TESTE) -->
     <div id="videoModal" class="modal">
         <div class="modal-content">
             <!-- Cabeçalho com botão fechar -->
@@ -1158,8 +1159,8 @@
 
             <!-- Container do vídeo com botão sobreposto -->
             <div class="video-container">
-                <video id="meuVideo" muted playsinline>
-                    <!-- ATENÇÃO: VERIFIQUE SE ESTE CAMINHO ESTÁ CORRETO -->
+                <video id="meuVideo" playsinline preload="auto">
+                    <!-- CAMINHO DO VÍDEO -->
                     <source src="videos/Carregador.mp4" type="video/mp4">
                     Seu navegador não suporta vídeo HTML5.
                 </video>
@@ -1169,6 +1170,9 @@
                     class="shopee-btn-overlay">
                     🛒 Comprar na Shopee
                 </a>
+
+                <!-- Botão de ativar áudio -->
+                <button class="audio-toggle-btn" id="audioToggleBtn">🔊 Ativar Áudio</button>
             </div>
         </div>
     </div>
@@ -1177,14 +1181,24 @@
         /* ESTILOS DA JANELA FLUTUANTE */
         .modal {
             display: none;
-            /* Importante: começa escondido */
             position: fixed;
             z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .modal-content {
@@ -1194,7 +1208,7 @@
             max-width: 320px;
             background: transparent;
             border-radius: 16px;
-            animation: slideDown 0.3s;
+            animation: slideDown 0.4s;
         }
 
         @keyframes slideDown {
@@ -1211,40 +1225,42 @@
 
         .modal-header {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            z-index: 10;
+            top: -12px;
+            right: -12px;
+            z-index: 20;
         }
 
         .close-btn {
             color: white;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: bold;
             cursor: pointer;
             background: rgba(0, 0, 0, 0.6);
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             transition: all 0.2s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .close-btn:hover {
             background: #ee4d2d;
-            color: white;
+            transform: scale(1.1);
+            border-color: white;
         }
 
         .video-container {
             position: relative;
             width: 100%;
             padding-bottom: 177.78%;
-            /* 9:16 Aspect Ratio */
             background: #000;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
         .video-container video {
@@ -1254,6 +1270,64 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            background: #000;
+        }
+
+        /* Overlay de play */
+        .video-container::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(238, 77, 45, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 6;
+            border: 3px solid white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-container.video-paused::after {
+            opacity: 1;
+        }
+
+        /* Botão de ativar áudio */
+        .audio-toggle-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            padding: 6px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            display: none;
+        }
+
+        .audio-toggle-btn:hover {
+            background: #ee4d2d;
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .audio-toggle-btn.visible {
+            display: block;
         }
 
         /* BOTÃO SOBREPOSTO - 10px */
@@ -1264,105 +1338,190 @@
             transform: translateX(-50%);
             background: #ee4d2d;
             color: white;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            padding: 10px 25px;
-            border-radius: 40px;
+            padding: 12px 30px;
+            border-radius: 50px;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             white-space: nowrap;
-            z-index: 5;
+            z-index: 7;
             transition: all 0.3s;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+            background: rgba(238, 77, 45, 0.98);
         }
 
         .shopee-btn-overlay:hover {
             background: #d43f21;
             transform: translateX(-50%) scale(1.05);
             border-color: white;
+            box-shadow: 0 6px 20px rgba(238, 77, 45, 0.6);
+        }
+
+        .shopee-btn-overlay:active {
+            transform: translateX(-50%) scale(0.98);
         }
 
         /* Responsividade */
         @media (max-width: 480px) {
             .modal-content {
+                margin: 10% auto;
                 width: 90%;
                 max-width: 280px;
             }
 
             .shopee-btn-overlay {
-                font-size: 13px;
-                padding: 8px 20px;
+                font-size: 14px;
+                padding: 10px 25px;
                 bottom: 8px;
                 white-space: normal;
                 width: 80%;
                 text-align: center;
             }
+
+            .close-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 28px;
+            }
+
+            .video-container::after {
+                width: 50px;
+                height: 50px;
+                font-size: 25px;
+            }
         }
 
         @media (max-width: 360px) {
             .shopee-btn-overlay {
+                font-size: 13px;
+                padding: 8px 20px;
                 bottom: 5px;
-                font-size: 12px;
-                padding: 6px 15px;
+                width: 85%;
             }
+        }
+
+        /* Controles do vídeo */
+        video::-webkit-media-controls {
+            display: flex !important;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-container:hover video::-webkit-media-controls {
+            opacity: 1;
         }
     </style>
 
     <script>
-        // VERSÃO CORRIGIDA E TESTADA
+        // VERSÃO FINAL - FUNCIONA SEM BOTÃO DE TESTE
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('✅ Página carregada, iniciando configuração da janela...');
+            'use strict';
+
+            console.log('🎬 Inicializando janela flutuante...');
 
             // === CONFIGURAÇÕES ===
             const VIDEO_PATH = 'videos/Carregador.mp4';
-            const SHOW_DELAY = 2000; // 2 segundos para garantir
+            const SHOW_DELAY = 2000; // 2 segundos
             const STORAGE_KEY = 'videoModalClosed';
 
             // === OBTÉM ELEMENTOS ===
             const modal = document.getElementById('videoModal');
             const video = document.getElementById('meuVideo');
             const closeBtn = document.querySelector('.close-btn');
+            const videoContainer = document.querySelector('.video-container');
+            const audioToggleBtn = document.getElementById('audioToggleBtn');
 
             // === VERIFICA SE OS ELEMENTOS EXISTEM ===
-            if (!modal) {
-                console.error('❌ ERRO: Elemento modal não encontrado!');
+            if (!modal || !video || !closeBtn) {
+                console.error('❌ Erro: Elementos não encontrados');
                 return;
             }
 
-            if (!video) {
-                console.error('❌ ERRO: Elemento video não encontrado!');
-                return;
+            // === CONFIGURA O VÍDEO ===
+            const source = video.querySelector('source');
+            if (source) {
+                source.src = VIDEO_PATH;
+                video.load();
+                console.log('✅ Vídeo configurado:', VIDEO_PATH);
             }
 
-            console.log('✅ Elementos encontrados:', { modal, video, closeBtn });
+            // Configurações iniciais
+            video.muted = true;
+            video.volume = 0;
+            video.playsInline = true;
+            video.preload = 'auto';
 
-            // === RESET FORÇADO PARA TESTE (COMENTE APÓS TESTAR) ===
-            // localStorage.removeItem(STORAGE_KEY); // Descomente para testar
+            // === FUNÇÃO PARA ATIVAR ÁUDIO ===
+            function activateAudio() {
+                console.log('🔊 Ativando áudio...');
+                video.muted = false;
+                video.volume = 1.0;
+                audioToggleBtn.classList.remove('visible');
 
-            // === VERIFICA O LOCALSTORAGE ===
-            const modalClosed = localStorage.getItem(STORAGE_KEY);
-            console.log('📦 localStorage.getItem("videoModalClosed"):', modalClosed);
+                if (video.paused) {
+                    video.play().catch(e => console.log('Erro ao reproduzir:', e));
+                }
+            }
+
+            // === FUNÇÃO PARA TENTAR REPRODUZIR VÍDEO ===
+            function tryPlayVideo() {
+                console.log('▶️ Tentando reproduzir vídeo...');
+                videoContainer.classList.remove('video-paused');
+
+                const playPromise = video.play();
+
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log('✅ Vídeo reproduzindo (sem áudio)');
+                            setTimeout(() => {
+                                if (video.muted) {
+                                    audioToggleBtn.classList.add('visible');
+                                }
+                            }, 1500);
+                        })
+                        .catch(error => {
+                            console.log('⚠️ Auto-play bloqueado:', error);
+                            videoContainer.classList.add('video-paused');
+
+                            videoContainer.addEventListener('click', function playOnClick() {
+                                video.play()
+                                    .then(() => {
+                                        console.log('✅ Vídeo reproduzido após clique');
+                                        videoContainer.classList.remove('video-paused');
+                                        setTimeout(() => {
+                                            if (video.muted) {
+                                                audioToggleBtn.classList.add('visible');
+                                            }
+                                        }, 1500);
+                                        videoContainer.removeEventListener('click', playOnClick);
+                                    })
+                                    .catch(e => console.log('❌ Erro:', e));
+                            }, { once: true });
+                        });
+                }
+            }
 
             // === FUNÇÃO PARA MOSTRAR MODAL ===
             function showModal() {
-                console.log('⏰ Tentando abrir modal...');
-
+                // Verifica se NÃO existe a chave no localStorage
+                // Se NÃO existe, significa que é a primeira vez ou nunca fechou
                 if (!localStorage.getItem(STORAGE_KEY)) {
-                    console.log('✅ Modal pode abrir (não foi fechado antes)');
+                    console.log('✅ Primeiro acesso - abrindo modal');
                     modal.style.display = 'block';
-                    console.log('✅ Modal aberto!');
 
-                    // Tenta reproduzir vídeo
-                    setTimeout(() => {
-                        video.play().then(() => {
-                            console.log('▶️ Vídeo reproduzindo automaticamente');
-                        }).catch(error => {
-                            console.log('⚠️ Auto-play bloqueado:', error);
-                            // Não é erro, é normal do navegador
-                        });
-                    }, 500);
+                    // Reset das variáveis
+                    video.muted = true;
+                    video.volume = 0;
+                    audioToggleBtn.classList.remove('visible');
+
+                    // Tenta reproduzir
+                    setTimeout(tryPlayVideo, 500);
                 } else {
-                    console.log('❌ Modal não abre (já foi fechado antes)');
+                    console.log('❌ Modal não abre (já foi fechado anteriormente)');
                 }
             }
 
@@ -1371,60 +1530,76 @@
                 console.log('🔒 Fechando modal...');
                 modal.style.display = 'none';
 
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                }
+                video.pause();
+                video.currentTime = 0;
+                video.muted = true;
+                video.volume = 0;
+                audioToggleBtn.classList.remove('visible');
 
+                // SALVA que o usuário fechou
                 localStorage.setItem(STORAGE_KEY, 'true');
-                console.log('✅ Modal fechado e salvo no localStorage');
+                console.log('✅ localStorage salvo');
             }
 
-            // === ABRE O MODAL APÓS O DELAY ===
-            console.log(`⏱️ Aguardando ${SHOW_DELAY / 1000} segundos para abrir...`);
-            setTimeout(showModal, SHOW_DELAY);
+            // === EVENTOS ===
+            // Botão fechar
+            closeBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeModal();
+            });
 
-            // === EVENTO DE CLIQUE NO BOTÃO FECHAR ===
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function (e) {
+            // Botão de ativar áudio
+            if (audioToggleBtn) {
+                audioToggleBtn.addEventListener('click', function (e) {
                     e.preventDefault();
-                    closeModal();
+                    e.stopPropagation();
+                    activateAudio();
                 });
-                console.log('✅ Evento de clique adicionado ao botão fechar');
             }
 
-            // === FECHA AO CLICAR FORA ===
+            // Clicar no vídeo
+            videoContainer.addEventListener('click', function (e) {
+                if (e.target === audioToggleBtn) return;
+                if (video.paused) {
+                    video.play().catch(e => console.log('Erro:', e));
+                }
+            });
+
+            // Clicar fora fecha
             window.addEventListener('click', function (event) {
                 if (event.target === modal) {
                     closeModal();
                 }
             });
 
-            // === PREVINE FECHAR AO CLICAR DENTRO ===
-            if (modal) {
-                modal.querySelector('.modal-content').addEventListener('click', function (event) {
-                    event.stopPropagation();
-                });
-            }
+            // Previne fechar ao clicar dentro
+            modal.querySelector('.modal-content').addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
 
-            // === FECHA COM TECLA ESC ===
+            // Tecla ESC fecha
             document.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape' && modal.style.display === 'block') {
                     closeModal();
                 }
             });
 
+            // Eventos do vídeo
+            video.addEventListener('loadeddata', function () {
+                console.log('📹 Vídeo carregado');
+            });
+
+            // MOSTRA O MODAL
+            setTimeout(showModal, SHOW_DELAY);
+
             console.log('🚀 Configuração completa!');
-            console.log('💡 Dica: Abra o console (F12) para ver mais mensagens');
+            console.log('💡 Dica: Para testar novamente, limpe o localStorage do site');
         });
 
-        // FUNÇÃO DE TESTE MANUAL
-        window.forcarAbrirModal = function () {
-            console.log('🔄 Forçando abertura do modal...');
-            localStorage.removeItem('videoModalClosed');
-            location.reload();
-        };
+        // Função de teste removida - NÃO PRECISA MAIS
     </script>
+
 </body>
 
 </html>
