@@ -1148,7 +1148,6 @@
             document.getElementById('splash-screen').style.display = 'none';
         });
     </script>
-
     <!-- MODAL VIDEO OFERTA AFILIADO -->
     <div id="videoModal" class="offer-modal">
 
@@ -1164,23 +1163,20 @@
 
                 <button id="audioBtn" class="audio-btn">🔊 Ativar áudio</button>
 
-                <!-- CONTADOR DE OFERTA -->
                 <div class="offer-timer">
-                    Anúncio termina em <span id="countdown">30</span>s
+                    ⏰ Oferta termina em <span id="countdown">31</span>s
                 </div>
 
-                <!-- BOTÃO AFILIADO -->
                 <a href="https://s.shopee.com.br/9zsmDZnJay" target="_blank" rel="noopener noreferrer" class="buy-btn">
                     🛒 Comprar agora
                 </a>
 
             </div>
         </div>
-
     </div>
 
     <style>
-        /* FUNDO DO MODAL */
+        /* FUNDO */
 
         .offer-modal {
             position: fixed;
@@ -1203,7 +1199,7 @@
             }
         }
 
-        /* CAIXA DO MODAL */
+        /* CAIXA */
 
         .offer-box {
             position: relative;
@@ -1245,7 +1241,7 @@
             line-height: 1;
         }
 
-        /* ÁREA DO VIDEO */
+        /* VIDEO */
 
         .video-area {
             position: relative;
@@ -1256,8 +1252,6 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, .5);
         }
 
-        /* VIDEO */
-
         video {
             position: absolute;
             width: 100%;
@@ -1265,7 +1259,7 @@
             object-fit: cover;
         }
 
-        /* BOTÃO ATIVAR AUDIO */
+        /* BOTÃO ÁUDIO */
 
         .audio-btn {
             position: absolute;
@@ -1278,8 +1272,12 @@
             border-radius: 20px;
             font-size: 13px;
             display: none;
-            z-index: 20;
             cursor: pointer;
+            z-index: 30;
+
+            /* CORREÇÃO IPHONE */
+            appearance: none;
+            -webkit-appearance: none;
         }
 
         /* CONTADOR */
@@ -1315,8 +1313,6 @@
             animation: pulse 1.5s infinite;
         }
 
-        /* ANIMAÇÃO DO BOTÃO */
-
         @keyframes pulse {
             0% {
                 transform: translateX(-50%) scale(1)
@@ -1340,13 +1336,19 @@
 
         @media(max-width:480px) {
 
+            .offer-box {
+                max-width: 280px;
+            }
+
+            /* EVITA SOBREPOSIÇÃO NO IPHONE */
+
+            .audio-btn {
+                top: 50px;
+            }
+
             .buy-btn {
                 font-size: 14px;
                 padding: 10px 22px;
-            }
-
-            .offer-box {
-                max-width: 280px;
             }
 
         }
@@ -1369,11 +1371,13 @@
                 modal.style.display = "flex"
 
                 video.play().then(() => {
+
                     setTimeout(() => {
                         if (video.muted) {
                             audio.style.display = "block"
                         }
                     }, 1500)
+
                 }).catch(() => {
                     area.addEventListener("click", () => video.play(), { once: true })
                 })
@@ -1392,8 +1396,6 @@
                 audio.style.display = "none"
 
             }
-
-            /* EVENTOS */
 
             close.onclick = closeModal
 
@@ -1420,22 +1422,21 @@
 
             }
 
-            /* CONTADOR DE URGÊNCIA */
+            /* CONTADOR */
 
             let time = 33
             const countdown = document.getElementById("countdown")
 
             setInterval(() => {
 
-                time--
-
-                if (time >= 0) {
+                if (time > 0) {
+                    time--
                     countdown.textContent = time
                 }
 
             }, 1000)
 
-            /* ABRIR MODAL APÓS 1.5s */
+            /* ABRIR MODAL */
 
             setTimeout(showModal, 1500)
 
