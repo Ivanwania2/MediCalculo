@@ -1149,455 +1149,298 @@
         });
     </script>
 
-    <!-- Janela Flutuante de Vídeo - VERSÃO FINAL (SEM BOTÃO DE TESTE) -->
-    <div id="videoModal" class="modal">
-        <div class="modal-content">
-            <!-- Cabeçalho com botão fechar -->
-            <div class="modal-header">
-                <span class="close-btn">&times;</span>
-            </div>
+    <!-- MODAL VIDEO OFERTA AFILIADO -->
+    <div id="videoModal" class="offer-modal">
 
-            <!-- Container do vídeo com botão sobreposto -->
-            <div class="video-container">
-                <video id="meuVideo" playsinline preload="auto">
-                    <!-- CAMINHO DO VÍDEO -->
+        <div class="offer-box">
+
+            <button class="close-offer" id="closeOffer">&times;</button>
+
+            <div class="video-area" id="videoArea">
+
+                <video id="offerVideo" playsinline muted preload="auto">
                     <source src="videos/Carregador.mp4" type="video/mp4">
-                    Seu navegador não suporta vídeo HTML5.
                 </video>
 
-                <!-- Botão de afiliado Shopee -->
-                <a href="https://s.shopee.com.br/9zsmDZnJay" target="_blank" rel="noopener noreferrer"
-                    class="shopee-btn-overlay">
-                    🛒 Comprar na Shopee
+                <button id="audioBtn" class="audio-btn">🔊 Ativar áudio</button>
+
+                <!-- CONTADOR DE OFERTA -->
+                <div class="offer-timer">
+                    Anúncio termina em <span id="countdown">30</span>s
+                </div>
+
+                <!-- BOTÃO AFILIADO -->
+                <a href="https://s.shopee.com.br/9zsmDZnJay" target="_blank" rel="noopener noreferrer" class="buy-btn">
+                    🛒 Comprar agora
                 </a>
 
-                <!-- Botão de ativar áudio -->
-                <button class="audio-toggle-btn" id="audioToggleBtn">🔊 Ativar Áudio</button>
             </div>
         </div>
+
     </div>
 
     <style>
-        /* ESTILOS DA JANELA FLUTUANTE */
-        .modal {
-            display: none;
+        /* FUNDO DO MODAL */
+
+        .offer-modal {
             position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            display: none;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            animation: fadeIn 0.3s;
+            animation: fadeIn .4s ease;
         }
 
         @keyframes fadeIn {
             from {
-                opacity: 0;
+                opacity: 0
             }
 
             to {
-                opacity: 1;
+                opacity: 1
             }
         }
 
-        .modal-content {
+        /* CAIXA DO MODAL */
+
+        .offer-box {
             position: relative;
-            margin: 5% auto;
-            width: 85%;
+            width: 90%;
             max-width: 320px;
-            background: transparent;
-            border-radius: 16px;
-            animation: slideDown 0.4s;
+            animation: slideUp .5s ease;
         }
 
-        @keyframes slideDown {
+        @keyframes slideUp {
             from {
-                transform: translateY(-50px);
-                opacity: 0;
+                transform: translateY(60px);
+                opacity: 0
             }
 
             to {
                 transform: translateY(0);
-                opacity: 1;
+                opacity: 1
             }
         }
 
-        .modal-header {
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            z-index: 20;
-        }
+        /* BOTÃO FECHAR */
 
-        .close-btn {
-            color: white;
+        .close-offer {
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, .85);
+            color: #fff;
             font-size: 32px;
-            font-weight: bold;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.6);
-            width: 40px;
-            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            transition: all 0.2s;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            line-height: 1;
         }
 
-        .close-btn:hover {
-            background: #ee4d2d;
-            transform: scale(1.1);
-            border-color: white;
-        }
+        /* ÁREA DO VIDEO */
 
-        .video-container {
+        .video-area {
             position: relative;
-            width: 100%;
-            padding-bottom: 177.78%;
+            padding-bottom: 178%;
             background: #000;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, .5);
         }
 
-        .video-container video {
+        /* VIDEO */
+
+        video {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            background: #000;
         }
 
-        /* Overlay de play */
-        .video-container::after {
-            content: '▶';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(238, 77, 45, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 6;
-            border: 3px solid white;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-        }
+        /* BOTÃO ATIVAR AUDIO */
 
-        .video-container.video-paused::after {
-            opacity: 1;
-        }
-
-        /* Botão de ativar áudio */
-        .audio-toggle-btn {
+        .audio-btn {
             position: absolute;
             top: 10px;
             left: 10px;
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 30px;
-            padding: 6px 15px;
+            background: rgba(0, 0, 0, .7);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s;
             display: none;
+            z-index: 20;
+            cursor: pointer;
         }
 
-        .audio-toggle-btn:hover {
-            background: #ee4d2d;
-            border-color: white;
-            transform: scale(1.05);
-        }
+        /* CONTADOR */
 
-        .audio-toggle-btn.visible {
-            display: block;
-        }
-
-        /* BOTÃO SOBREPOSTO - 10px */
-        .shopee-btn-overlay {
+        .offer-timer {
             position: absolute;
-            bottom: 10px;
+            top: 10px;
+            right: 10px;
+            background: #ee4d2d;
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 20px;
+            z-index: 20;
+        }
+
+        /* BOTÃO SHOPEE */
+
+        .buy-btn {
+            position: absolute;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             background: #ee4d2d;
-            color: white;
-            font-size: 16px;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 40px;
             font-weight: bold;
-            padding: 12px 30px;
-            border-radius: 50px;
+            font-size: 15px;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            white-space: nowrap;
-            z-index: 7;
-            transition: all 0.3s;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(4px);
-            background: rgba(238, 77, 45, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .5);
+            animation: pulse 1.5s infinite;
         }
 
-        .shopee-btn-overlay:hover {
-            background: #d43f21;
-            transform: translateX(-50%) scale(1.05);
-            border-color: white;
-            box-shadow: 0 6px 20px rgba(238, 77, 45, 0.6);
+        /* ANIMAÇÃO DO BOTÃO */
+
+        @keyframes pulse {
+            0% {
+                transform: translateX(-50%) scale(1)
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.08)
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1)
+            }
         }
 
-        .shopee-btn-overlay:active {
-            transform: translateX(-50%) scale(0.98);
+        .buy-btn:hover {
+            animation: none;
+            background: #d84327;
         }
 
-        /* Responsividade */
-        @media (max-width: 480px) {
-            .modal-content {
-                margin: 10% auto;
-                width: 90%;
+        /* MOBILE */
+
+        @media(max-width:480px) {
+
+            .buy-btn {
+                font-size: 14px;
+                padding: 10px 22px;
+            }
+
+            .offer-box {
                 max-width: 280px;
             }
 
-            .shopee-btn-overlay {
-                font-size: 14px;
-                padding: 10px 25px;
-                bottom: 8px;
-                white-space: normal;
-                width: 80%;
-                text-align: center;
-            }
-
-            .close-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 28px;
-            }
-
-            .video-container::after {
-                width: 50px;
-                height: 50px;
-                font-size: 25px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .shopee-btn-overlay {
-                font-size: 13px;
-                padding: 8px 20px;
-                bottom: 5px;
-                width: 85%;
-            }
-        }
-
-        /* Controles do vídeo */
-        video::-webkit-media-controls {
-            display: flex !important;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .video-container:hover video::-webkit-media-controls {
-            opacity: 1;
         }
     </style>
 
     <script>
-        // VERSÃO FINAL - FUNCIONA SEM BOTÃO DE TESTE
-        document.addEventListener('DOMContentLoaded', function () {
-            'use strict';
 
-            console.log('🎬 Inicializando janela flutuante...');
+        document.addEventListener("DOMContentLoaded", () => {
 
-            // === CONFIGURAÇÕES ===
-            const VIDEO_PATH = 'videos/Carregador.mp4';
-            const SHOW_DELAY = 2000; // 2 segundos
-            const STORAGE_KEY = 'videoModalClosed';
+            const modal = document.getElementById("videoModal")
+            const video = document.getElementById("offerVideo")
+            const close = document.getElementById("closeOffer")
+            const audio = document.getElementById("audioBtn")
+            const area = document.getElementById("videoArea")
 
-            // === OBTÉM ELEMENTOS ===
-            const modal = document.getElementById('videoModal');
-            const video = document.getElementById('meuVideo');
-            const closeBtn = document.querySelector('.close-btn');
-            const videoContainer = document.querySelector('.video-container');
-            const audioToggleBtn = document.getElementById('audioToggleBtn');
+            /* MOSTRAR MODAL */
 
-            // === VERIFICA SE OS ELEMENTOS EXISTEM ===
-            if (!modal || !video || !closeBtn) {
-                console.error('❌ Erro: Elementos não encontrados');
-                return;
-            }
-
-            // === CONFIGURA O VÍDEO ===
-            const source = video.querySelector('source');
-            if (source) {
-                source.src = VIDEO_PATH;
-                video.load();
-                console.log('✅ Vídeo configurado:', VIDEO_PATH);
-            }
-
-            // Configurações iniciais
-            video.muted = true;
-            video.volume = 0;
-            video.playsInline = true;
-            video.preload = 'auto';
-
-            // === FUNÇÃO PARA ATIVAR ÁUDIO ===
-            function activateAudio() {
-                console.log('🔊 Ativando áudio...');
-                video.muted = false;
-                video.volume = 1.0;
-                audioToggleBtn.classList.remove('visible');
-
-                if (video.paused) {
-                    video.play().catch(e => console.log('Erro ao reproduzir:', e));
-                }
-            }
-
-            // === FUNÇÃO PARA TENTAR REPRODUZIR VÍDEO ===
-            function tryPlayVideo() {
-                console.log('▶️ Tentando reproduzir vídeo...');
-                videoContainer.classList.remove('video-paused');
-
-                const playPromise = video.play();
-
-                if (playPromise !== undefined) {
-                    playPromise
-                        .then(() => {
-                            console.log('✅ Vídeo reproduzindo (sem áudio)');
-                            setTimeout(() => {
-                                if (video.muted) {
-                                    audioToggleBtn.classList.add('visible');
-                                }
-                            }, 1500);
-                        })
-                        .catch(error => {
-                            console.log('⚠️ Auto-play bloqueado:', error);
-                            videoContainer.classList.add('video-paused');
-
-                            videoContainer.addEventListener('click', function playOnClick() {
-                                video.play()
-                                    .then(() => {
-                                        console.log('✅ Vídeo reproduzido após clique');
-                                        videoContainer.classList.remove('video-paused');
-                                        setTimeout(() => {
-                                            if (video.muted) {
-                                                audioToggleBtn.classList.add('visible');
-                                            }
-                                        }, 1500);
-                                        videoContainer.removeEventListener('click', playOnClick);
-                                    })
-                                    .catch(e => console.log('❌ Erro:', e));
-                            }, { once: true });
-                        });
-                }
-            }
-
-            // === FUNÇÃO PARA MOSTRAR MODAL ===
             function showModal() {
-                // Verifica se NÃO existe a chave no localStorage
-                // Se NÃO existe, significa que é a primeira vez ou nunca fechou
-                if (!localStorage.getItem(STORAGE_KEY)) {
-                    console.log('✅ Primeiro acesso - abrindo modal');
-                    modal.style.display = 'block';
 
-                    // Reset das variáveis
-                    video.muted = true;
-                    video.volume = 0;
-                    audioToggleBtn.classList.remove('visible');
+                modal.style.display = "flex"
 
-                    // Tenta reproduzir
-                    setTimeout(tryPlayVideo, 500);
-                } else {
-                    console.log('❌ Modal não abre (já foi fechado anteriormente)');
-                }
+                video.play().then(() => {
+                    setTimeout(() => {
+                        if (video.muted) {
+                            audio.style.display = "block"
+                        }
+                    }, 1500)
+                }).catch(() => {
+                    area.addEventListener("click", () => video.play(), { once: true })
+                })
+
             }
 
-            // === FUNÇÃO PARA FECHAR MODAL ===
+            /* FECHAR MODAL */
+
             function closeModal() {
-                console.log('🔒 Fechando modal...');
-                modal.style.display = 'none';
 
-                video.pause();
-                video.currentTime = 0;
-                video.muted = true;
-                video.volume = 0;
-                audioToggleBtn.classList.remove('visible');
+                modal.style.display = "none"
 
-                // SALVA que o usuário fechou
-                localStorage.setItem(STORAGE_KEY, 'true');
-                console.log('✅ localStorage salvo');
+                video.pause()
+                video.currentTime = 0
+                video.muted = true
+                audio.style.display = "none"
+
             }
 
-            // === EVENTOS ===
-            // Botão fechar
-            closeBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                closeModal();
-            });
+            /* EVENTOS */
 
-            // Botão de ativar áudio
-            if (audioToggleBtn) {
-                audioToggleBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    activateAudio();
-                });
+            close.onclick = closeModal
+
+            window.onclick = e => {
+                if (e.target === modal) {
+                    closeModal()
+                }
             }
 
-            // Clicar no vídeo
-            videoContainer.addEventListener('click', function (e) {
-                if (e.target === audioToggleBtn) return;
-                if (video.paused) {
-                    video.play().catch(e => console.log('Erro:', e));
+            document.addEventListener("keydown", e => {
+                if (e.key === "Escape") {
+                    closeModal()
                 }
-            });
+            })
 
-            // Clicar fora fecha
-            window.addEventListener('click', function (event) {
-                if (event.target === modal) {
-                    closeModal();
+            /* ATIVAR AUDIO */
+
+            audio.onclick = () => {
+
+                video.muted = false
+                video.volume = 1
+                audio.style.display = "none"
+                video.play()
+
+            }
+
+            /* CONTADOR DE URGÊNCIA */
+
+            let time = 33
+            const countdown = document.getElementById("countdown")
+
+            setInterval(() => {
+
+                time--
+
+                if (time >= 0) {
+                    countdown.textContent = time
                 }
-            });
 
-            // Previne fechar ao clicar dentro
-            modal.querySelector('.modal-content').addEventListener('click', function (event) {
-                event.stopPropagation();
-            });
+            }, 1000)
 
-            // Tecla ESC fecha
-            document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape' && modal.style.display === 'block') {
-                    closeModal();
-                }
-            });
+            /* ABRIR MODAL APÓS 1.5s */
 
-            // Eventos do vídeo
-            video.addEventListener('loadeddata', function () {
-                console.log('📹 Vídeo carregado');
-            });
+            setTimeout(showModal, 1500)
 
-            // MOSTRA O MODAL
-            setTimeout(showModal, SHOW_DELAY);
+        })
 
-            console.log('🚀 Configuração completa!');
-            console.log('💡 Dica: Para testar novamente, limpe o localStorage do site');
-        });
-
-        // Função de teste removida - NÃO PRECISA MAIS
     </script>
 
 </body>
