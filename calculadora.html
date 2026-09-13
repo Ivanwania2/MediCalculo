@@ -8,7 +8,7 @@
         content="Calculadora de Medicamentos que mostra datas e horários de todas as doses. Ideal para remédios contínuos e retiradas no SUS.">
     <meta property="og:description"
         content="Nunca mais fique sem seus medicamentos. Calculadora gratuita que mostra exatamente quando seus remédios vão acabar e todos os horários de doses.">
-    <title>Calculadora de Medicamentos | MediCalculo</title>
+    <title>Medicamentos | MediCalculo</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -25,7 +25,7 @@
         gtag('config', 'G-NZBECXGTNF');
     </script>
     <style>
-        /* Estilos para a tela de carregamento */
+        /* ========== TELA DE CARREGAMENTO ========== */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -48,10 +48,6 @@
             height: 100px;
         }
 
-        #main-content {
-            display: none;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -66,14 +62,149 @@
             color: #2d3748;
         }
 
+        /* ========== LAYOUT PRINCIPAL ========== */
+        .page-layout {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1000px) 220px;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        /* ========== SIDEBARS (DESKTOP) ========== */
+        .ad-sidebar {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ========== CARD DE ANÚNCIO (estilo moderno) ========== */
+        .ad-card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .ad-card .ad-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .ad-card .ad-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #fef9c3 0%, #fde68a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            color: #b45309;
+        }
+
+        .ad-card .ad-body {
+            padding: 12px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Título do produto */
+        .ad-card .ad-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .ad-card .ad-cta {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: linear-gradient(135deg, #ffe600, #ffcc00);
+            color: #1f2937;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #e6c800;
+            transition: all 0.2s ease;
+            margin-top: 4px;
+        }
+
+        .ad-card .ad-cta:hover {
+            background: linear-gradient(135deg, #ffcc00, #e6b800);
+            transform: scale(1.02);
+        }
+
+        /* ========== ANÚNCIOS INLINE (MOBILE) ========== */
+        .ad-inline {
+            display: none; /* oculto no desktop */
+            margin: 25px 0;
+        }
+
+        .ad-inline .ad-card {
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .ad-inline .ad-card .ad-image {
+            width: 120px;
+            min-width: 120px;
+            aspect-ratio: auto;
+            font-size: 2.4rem;
+        }
+
+        .ad-inline .ad-card .ad-body {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .ad-inline .ad-card .ad-cta {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 6px;
+            align-self: flex-start;
+        }
+
+        /* ========== CONTAINER PRINCIPAL ========== */
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
+            min-width: 0;
+            width: 100%;
         }
 
         .header {
@@ -98,7 +229,7 @@
             font-size: 1.1em;
         }
 
-        /* Estilos para múltiplos medicamentos */
+        /* ========== FORMULÁRIO ========== */
         .medicamentos-container {
             margin-bottom: 30px;
         }
@@ -169,12 +300,6 @@
             gap: 20px;
         }
 
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
         label {
             display: block;
             margin-bottom: 8px;
@@ -229,6 +354,7 @@
             padding-left: 5px;
         }
 
+        /* ========== BOTÕES ========== */
         .buttons-container {
             display: flex;
             gap: 15px;
@@ -281,6 +407,7 @@
             transform: translateY(-2px);
         }
 
+        /* ========== RESULTADO ========== */
         #resultado {
             margin-top: 30px;
             padding: 20px;
@@ -290,15 +417,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .sucesso {
@@ -383,46 +503,7 @@
             color: #4a5568;
         }
 
-        @media (max-width: 640px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .buttons-container {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
-            }
-
-            .tabela-horarios {
-                font-size: 0.9em;
-            }
-
-            .tabela-horarios th,
-            .tabela-horarios td {
-                padding: 8px;
-            }
-        }
-
-        /* Footer */
-        .footer {
-            position: absolute;
-            left: 0;
-            right: 0;
-            background: #2d3748;
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            line-height: 1.0;
-        }
-
-        /* Estilos para os botões de ação */
+        /* ========== BOTÕES DE AÇÃO ========== */
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -479,31 +560,156 @@
             transform: translateY(-2px);
         }
 
-        /* Estilos específicos para impressão */
-        @media print {
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            line-height: 1.6;
+            margin-top: 40px;
+        }
 
-            /* Oculta todos os elementos da página */
+        .footer a {
+            color: #a3bffa;
+        }
+
+        /* ========== RESPONSIVO: TABLET ========== */
+        @media (max-width: 1100px) {
+            .page-layout {
+                grid-template-columns: minmax(0, 1000px);
+            }
+
+            .ad-sidebar {
+                display: none;
+            }
+
+            .ad-inline {
+                display: block;
+            }
+        }
+
+        /* ========== RESPONSIVO: MOBILE ========== */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
+            .page-layout {
+                padding: 0;
+                gap: 0;
+            }
+
+            .container {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 1.75em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .medicamento-card {
+                padding: 18px;
+            }
+
+            .medicamento-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .btn-remover {
+                width: 100%;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                font-size: 1em;
+                padding: 14px 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .unidade {
+                min-width: 0;
+                width: 100%;
+            }
+
+            .tabela-horarios {
+                font-size: 0.85em;
+            }
+
+            .tabela-horarios th,
+            .tabela-horarios td {
+                padding: 8px 6px;
+            }
+
+            .ad-inline .ad-card {
+                flex-direction: column;
+            }
+
+            .ad-inline .ad-card .ad-image {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                font-size: 3rem;
+            }
+
+            .ad-inline .ad-card .ad-cta {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* ========== IMPRESSÃO ========== */
+        @media print {
             body * {
                 visibility: hidden;
             }
 
-            /* Mostra apenas o resultado e seus filhos */
             #resultado,
             #resultado * {
                 visibility: visible !important;
             }
 
-            /* Remove estilos de navegação e interface */
             .fixed-top,
             .action-buttons,
             .buttons-container,
             .footer,
             #splash-screen,
-            .navbar {
+            .navbar,
+            .ad-sidebar,
+            .ad-inline {
                 display: none !important;
             }
 
-            /* Posicionamento do resultado na impressão */
             #resultado {
                 position: absolute !important;
                 left: 0 !important;
@@ -517,7 +723,6 @@
                 color: black !important;
             }
 
-            /* Estilos para os títulos dos medicamentos na impressão */
             .medicamento-resultado h3 {
                 color: black !important;
                 background: none !important;
@@ -527,7 +732,6 @@
                 font-size: 1.4em !important;
             }
 
-            /* Estilos para as tabelas na impressão */
             .tabela-horarios table {
                 width: 100% !important;
                 border-collapse: collapse !important;
@@ -547,7 +751,6 @@
                 padding: 8px !important;
             }
 
-            /* Estilos para as datas na impressão */
             .datas {
                 background: #f9f9f9 !important;
                 color: black !important;
@@ -556,7 +759,6 @@
                 margin: 10px 0 !important;
             }
 
-            /* Garantir que os medicamentos sejam exibidos corretamente */
             .medicamento-resultado {
                 background: white !important;
                 border: 1px solid #ccc !important;
@@ -566,12 +768,6 @@
                 page-break-inside: avoid;
             }
 
-            /* Quebra de página para medicamentos muito longos */
-            .medicamento-resultado:not(:last-child) {
-                page-break-after: auto;
-            }
-
-            /* Estilos para horários das doses */
             .horarios-doses {
                 background: white !important;
                 border: 1px solid #ccc !important;
@@ -586,7 +782,6 @@
             }
         }
 
-        /* Estilos para melhorar a apresentação */
         @media (prefers-reduced-motion: reduce) {
             .tabela-horarios tr:hover {
                 background: inherit;
@@ -596,8 +791,6 @@
 </head>
 
 <body>
-    <amp-auto-ads type="adsense" data-ad-client="ca-pub-5079388477966298">
-    </amp-auto-ads>
     <!-- Tela de Carregamento -->
     <div id="splash-screen">
         <img src="./img/Logotipo.png" alt="Ícone do Site">
@@ -607,9 +800,10 @@
             <span class="visually-hidden">Carregando...</span>
         </div>
     </div>
+
+    <!-- Navegação -->
     <div class="fixed-top">
         <nav class="navbar bg-body-tertiary">
-
             <div class="container-fluid">
                 <a class="navbar-brand" href="https://www.medicalculo.com.br/">
                     <img src="./img/Logotipo.png" alt="Logo" width="24" height="24"
@@ -621,7 +815,6 @@
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -665,131 +858,231 @@
                             </script>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
     </div>
+
     <br />
     <br />
     <br />
     <br />
-    <div class="container">
-        <div class="header">
-            <h1>Calculadora Dose de Medicamentos</h1>
-            <a href="https://www.medicalculo.com.br" target="_blank"> <img src="img/Logotipomenor.png"
-                    class="img-fluid mx-auto d-block img-thumbnail" alt="Logo Medicalculo"> </a>
-            <br />
-            <div class="subtitle">Calculadora de Medicamentos Online</div>
-        </div>
-        <form id="calculadora">
-            <div class="medicamentos-container" id="medicamentosContainer">
-                <!-- Medicamentos serão adicionados aqui dinamicamente -->
+
+    <!-- Layout principal -->
+    <div class="page-layout">
+
+        <!-- ========== SIDEBAR ESQUERDA (DESKTOP) ========== -->
+        <aside class="ad-sidebar" id="adSidebarLeft">
+            <div class="ad-card">
+                <span class="ad-tag">Publicidade</span>
+                <div class="ad-image">💊</div>
+                <div class="ad-body">
+                    <div class="ad-title">Kit Organizador de Medicamentos Semanal</div>
+                    <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                        Ver ofertas
+                    </a>
+                </div>
             </div>
 
-            <div id="resultado"></div>
-            <div class="buttons-container">
-                <button type="button" class="btn-adicionar" id="btnAdicionar">+ Adicionar Medicamento</button>
-                <button type="button" class="btn-limpar" id="btnLimpar">Limpar Todos</button>
-                <button type="submit" class="btn-calcular">Calcular Todos</button>
+            <div class="ad-card">
+                <span class="ad-tag">Publicidade</span>
+                <div class="ad-image">🩺</div>
+                <div class="ad-body">
+                    <div class="ad-title">Aparelho de Pressão Digital Automático</div>
+                    <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                        Ver ofertas
+                    </a>
+                </div>
             </div>
-            <br />
-            <a href="https://meli.la/1FD7Ujs" target="_blank"> <img
-                    src="./img/Carregadorpowerbanck.png" class="img-fluid mx-auto d-block img-thumbnail"
-                    alt="Anuncio Carregador Power Bank"> </a>
-            <br />
-        </form>
 
-        <!-- Botões de ação - agora permanentes -->
-        <div class="action-buttons">
-            <button onclick="imprimirResultado()" class="action-btn print-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path
-                        d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
-                    <path
-                        d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                </svg>
-                Imprimir
-            </button>
-            <button id="btnDownload" class="action-btn pdf-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path
-                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                    <path
-                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                </svg>
-                Baixar PDF
-            </button>
-            <a href="./ajuda.html" class="action-btn help-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path
-                        d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
-                </svg>
-                Ajuda
-            </a>
+            <div class="ad-card">
+                <span class="ad-tag">Publicidade</span>
+                <div class="ad-image">🌡️</div>
+                <div class="ad-body">
+                    <div class="ad-title">Termômetro Digital Infravermelho</div>
+                    <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                        Ver ofertas
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========== CONTEÚDO PRINCIPAL ========== -->
+        <div class="container">
+            <div class="header">
+                <h1>Medicamentos App</h1>
+                <a href="https://www.medicalculo.com.br" target="_blank">
+                    <img src="img/Logotipomenor.png" class="img-fluid mx-auto d-block img-thumbnail"
+                        alt="Logo Medicalculo">
+                </a>
+                <br />
+                <div class="subtitle">Medicamentos App Online</div>
+            </div>
+
+            <!-- ANÚNCIO INLINE 1 (aparece só em mobile/tablet) -->
+            <div class="ad-inline">
+                <div class="ad-card">
+                    <span class="ad-tag">Publicidade</span>
+                    <div class="ad-image">💊</div>
+                    <div class="ad-body">
+                        <div class="ad-title">Kit Organizador de Medicamentos Semanal</div>
+                        <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                            target="_blank" rel="noopener noreferrer" class="ad-cta">
+                            Ver ofertas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <form id="calculadora">
+                <div class="medicamentos-container" id="medicamentosContainer">
+                    <!-- Medicamentos adicionados dinamicamente -->
+                </div>
+
+                <div id="resultado"></div>
+
+                <!-- ANÚNCIO INLINE 2 (aparece só em mobile/tablet) -->
+                <div class="ad-inline">
+                    <div class="ad-card">
+                        <span class="ad-tag">Publicidade</span>
+                        <div class="ad-image">🩺</div>
+                        <div class="ad-body">
+                            <div class="ad-title">Aparelho de Pressão Digital Automático</div>
+                            <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                                target="_blank" rel="noopener noreferrer" class="ad-cta">
+                                Ver ofertas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons-container">
+                    <button type="button" class="btn-adicionar" id="btnAdicionar">+ Adicionar Medicamento</button>
+                    <button type="button" class="btn-limpar" id="btnLimpar">Limpar Todos</button>
+                    <button type="submit" class="btn-calcular">Calcular Todos</button>
+                </div>
+            </form>
+
+            <!-- Botões de ação -->
+            <div class="action-buttons">
+                <button onclick="imprimirResultado()" class="action-btn print-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                        <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                    </svg>
+                    Imprimir
+                </button>
+                <button id="btnDownload" class="action-btn pdf-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                    </svg>
+                    Baixar PDF
+                </button>
+                <a href="./ajuda.html" class="action-btn help-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                    </svg>
+                    Ajuda
+                </a>
+            </div>
+
+            <!-- ANÚNCIO INLINE 3 (aparece só em mobile/tablet) -->
+            <div class="ad-inline">
+                <div class="ad-card">
+                    <span class="ad-tag">Publicidade</span>
+                    <div class="ad-image">🌡️</div>
+                    <div class="ad-body">
+                        <div class="ad-title">Termômetro Digital Infravermelho</div>
+                        <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                            target="_blank" rel="noopener noreferrer" class="ad-cta">
+                            Ver ofertas
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <!-- ========== SIDEBAR DIREITA (DESKTOP) ========== -->
+        <aside class="ad-sidebar" id="adSidebarRight">
+            <div class="ad-card">
+                <span class="ad-tag">Publicidade</span>
+                <div class="ad-image">💉</div>
+                <div class="ad-body">
+                    <div class="ad-title">Kit Diabetes - Glicosímetro + 50 Fitas</div>
+                    <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                        Ver ofertas
+                    </a>
+                </div>
+            </div>
+
+            <div class="ad-card">
+                <span class="ad-tag">Publicidade</span>
+                <div class="ad-image">💊</div>
+                <div class="ad-body">
+                    <div class="ad-title">Porta Comprimidos Diário com 7 Divisões</div>
+                    <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                        Ver ofertas
+                    </a>
+                </div>
+            </div>
+
+            <div class="ad-card">
+                <span class="ad-tag">Publicidade</span>
+                <div class="ad-image">🩹</div>
+                <div class="ad-body">
+                    <div class="ad-title">Kit Curativos e Primeiros Socorros Completo</div>
+                    <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                        Ver ofertas
+                    </a>
+                </div>
+            </div>
+        </aside>
     </div>
 
+    <!-- Rodapé -->
     <footer class="footer">
         <p>Calculadora de Medicamentos | MediCalculo</p>
         <p>Contato: faleconosco@medicalculo.com.br</p>
         <p><a href="./PolíticadePrivacidade.html">Política de Privacidade</a></p>
         <p>Desenvolvido por Ivan Monteiro de Oliveira</p>
-        <p>© 2025 - Todos os direitos reservados.</p>
+        <p>© 2025 - 2026 Todos os direitos reservados.</p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
     <script>
-        // Configuração das unidades de medida para cada tipo de medicamento
+        // ========== CONFIGURAÇÃO DE UNIDADES ==========
         const unidadesMedida = {
-            comprimido: {
-                quantidade: "comprimido(s)",
-                dosagem: "comprimido(s)"
-            },
-            capsula: {
-                quantidade: "cápsula(s)",
-                dosagem: "cápsula(s)"
-            },
-            solucao: {
-                quantidade: "mL",
-                dosagem: "mL"
-            },
-            gota: {
-                quantidade: "mL",
-                dosagem: "gota(s)"
-            },
-            supositorio: {
-                quantidade: "supositório(s)",
-                dosagem: "supositório(s)"
-            },
-            ampola: {
-                quantidade: "ampola(s)",
-                dosagem: "ampola(s)"
-            },
-            adesivo: {
-                quantidade: "adesivo(s)",
-                dosagem: "adesivo(s)"
-            },
+            comprimido: { quantidade: "comprimido(s)", dosagem: "comprimido(s)" },
+            capsula: { quantidade: "cápsula(s)", dosagem: "cápsula(s)" },
+            solucao: { quantidade: "mL", dosagem: "mL" },
+            gota: { quantidade: "mL", dosagem: "gota(s)" },
+            supositorio: { quantidade: "supositório(s)", dosagem: "supositório(s)" },
+            ampola: { quantidade: "ampola(s)", dosagem: "ampola(s)" },
+            adesivo: { quantidade: "adesivo(s)", dosagem: "adesivo(s)" },
         };
 
-        // Variáveis globais
         let medicamentoCounter = 0;
         let currentCalculations = [];
 
-        // Inicialização
         document.addEventListener('DOMContentLoaded', function () {
-            adicionarMedicamento(); // Adiciona o primeiro medicamento
+            adicionarMedicamento();
         });
 
-        // Função para adicionar um novo medicamento
+        // ========== ADICIONAR MEDICAMENTO ==========
         function adicionarMedicamento() {
             medicamentoCounter++;
             const container = document.getElementById('medicamentosContainer');
-
             const hoje = new Date();
             const dataFormatada = hoje.toISOString().split('T')[0];
 
@@ -870,15 +1163,13 @@
             container.insertAdjacentHTML('beforeend', medicamentoHTML);
         }
 
-        // Função para remover medicamento
+        // ========== REMOVER MEDICAMENTO ==========
         function removerMedicamento(id) {
             const medicamento = document.getElementById(`medicamento${id}`);
-            if (medicamento) {
-                medicamento.remove();
-            }
+            if (medicamento) medicamento.remove();
         }
 
-        // Função para atualizar unidades
+        // ========== ATUALIZAR UNIDADES ==========
         function atualizarUnidades(id) {
             const tipo = document.getElementById(`tipoMedicamento${id}`).value;
             const unidadeQuantidade = document.getElementById(`unidadeQuantidade${id}`);
@@ -888,8 +1179,6 @@
             if (tipo && unidadesMedida[tipo]) {
                 unidadeQuantidade.textContent = unidadesMedida[tipo].quantidade;
                 unidadeDosagem.textContent = unidadesMedida[tipo].dosagem;
-
-                // Mostra ou esconde campos específicos para gotas
                 if (tipo === 'gota') {
                     gotasPorMl.classList.remove('hidden');
                 } else {
@@ -902,20 +1191,17 @@
             }
         }
 
-        // Função customizada para impressão
+        // ========== IMPRIMIR ==========
         function imprimirResultado() {
             const resultadoDiv = document.getElementById('resultado');
-
             if (resultadoDiv.style.display === 'none') {
                 alert('Por favor, realize um cálculo primeiro.');
                 return;
             }
-
-            // Usar a função nativa de impressão do navegador
             window.print();
         }
 
-        // Event listeners
+        // ========== EVENT LISTENERS ==========
         document.getElementById('btnAdicionar').addEventListener('click', adicionarMedicamento);
 
         document.getElementById('btnLimpar').addEventListener('click', function () {
@@ -932,9 +1218,8 @@
             currentCalculations = [];
             let resultadoHTML = '';
 
-            medicamentos.forEach((medicamentoCard, index) => {
+            medicamentos.forEach((medicamentoCard) => {
                 const id = medicamentoCard.id.replace('medicamento', '');
-
                 const nomeMedicamento = document.getElementById(`nomeMedicamento${id}`).value;
                 const tipo = document.getElementById(`tipoMedicamento${id}`).value;
                 const quantidade = parseFloat(document.getElementById(`quantidade${id}`).value);
@@ -968,20 +1253,12 @@
                 const dataFinal = new Date(dataInicio);
                 dataFinal.setDate(dataInicio.getDate() + dias - 1);
 
-                // Gerar horários das doses
                 const horarios = gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia);
 
-                // Armazenar cálculo
                 currentCalculations.push({
-                    nomeMedicamento: nomeMedicamento,
-                    tipo: tipo,
-                    dosagemPorVez: dosagemPorVez,
-                    dosesPorDia: dosesPorDia,
-                    dataInicio: dataInicio,
-                    horarios: horarios
+                    nomeMedicamento, tipo, dosagemPorVez, dosesPorDia, dataInicio, horarios
                 });
 
-                // Gerar HTML do resultado
                 let mensagem = `<div class="medicamento-resultado">`;
 
                 if (nomeMedicamento) {
@@ -1010,19 +1287,13 @@
 
                 mensagem += '.';
 
-                const opcoesData = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
+                const opcoesData = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
                 mensagem += `<div class="datas">
                     <strong>Data de Início:</strong> ${dataInicio.toLocaleDateString('pt-BR', opcoesData)}<br>
                     <strong>Data Final:</strong> ${dataFinal.toLocaleDateString('pt-BR', opcoesData)}
                 </div>`;
 
-                // Adicionar tabela de horários
                 mensagem += `
                     <div class="horarios-doses">
                         <h4>Horários das Doses</h4>
@@ -1064,7 +1335,7 @@
 
         function gerarHorariosDoses(dataInicio, dataFinal, dosesPorDia) {
             const horarios = [];
-            const intervalo = 24 / dosesPorDia; // Intervalo em horas entre as doses
+            const intervalo = 24 / dosesPorDia;
             const dataAtual = new Date(dataInicio);
 
             while (dataAtual <= dataFinal) {
@@ -1075,19 +1346,15 @@
 
                     horarios.push({
                         data: new Date(horaAlvo),
-                        hora: horaAlvo.toLocaleTimeString('pt-BR', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })
+                        hora: horaAlvo.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
                     });
                 }
                 dataAtual.setDate(dataAtual.getDate() + 1);
             }
-
             return horarios;
         }
 
-        // Configuração do botão de PDF
+        // ========== DOWNLOAD PDF ==========
         document.getElementById('btnDownload').addEventListener('click', function () {
             const resultadoDiv = document.getElementById('resultado');
 
@@ -1104,12 +1371,12 @@
                 var imgData = canvas.toDataURL('image/png');
                 var { jsPDF } = window.jspdf;
                 var pdf = new jsPDF('p', 'mm', 'a4');
-                var imgWidth = 210 - 20; // Largura A4 menos margens
-                var pageHeight = 297 - 20; // Altura A4 menos margens
+                var imgWidth = 210 - 20;
+                var pageHeight = 297 - 20;
                 var imgHeight = canvas.height * imgWidth / canvas.width;
 
                 let heightLeft = imgHeight;
-                let position = 10; // Margem superior
+                let position = 10;
 
                 pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
@@ -1148,302 +1415,6 @@
             document.getElementById('splash-screen').style.display = 'none';
         });
     </script>
-    <!-- MODAL VIDEO OFERTA AFILIADO -->
-    <div id="videoModal" class="offer-modal">
-
-        <div class="offer-box">
-
-            <button class="close-offer" id="closeOffer">&times;</button>
-
-            <div class="video-area" id="videoArea">
-
-                <video id="offerVideo" playsinline muted preload="auto">
-                    <source src="videos/Carregador.mp4" type="video/mp4">
-                </video>
-
-                <button id="audioBtn" class="audio-btn">🔊 Ativar áudio</button>
-
-                <div class="offer-timer">
-                    ⏰ Anúncio termina em <span id="countdown">31</span>s
-                </div>
-
-                <a href="https://s.shopee.com.br/9zsmDZnJay" target="_blank" rel="noopener noreferrer" class="buy-btn">
-                    🛒 Comprar agora
-                </a>
-
-            </div>
-        </div>
-    </div>
-
-    <style>
-        /* FUNDO */
-
-        .offer-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .75);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            animation: fadeIn .4s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        /* CAIXA */
-
-        .offer-box {
-            position: relative;
-            width: 90%;
-            max-width: 320px;
-            animation: slideUp .5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(60px);
-                opacity: 0
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1
-            }
-        }
-
-        /* BOTÃO FECHAR */
-
-        .close-offer {
-            position: absolute;
-            top: -14px;
-            right: -14px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(0, 0, 0, .85);
-            color: #fff;
-            font-size: 32px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            line-height: 1;
-        }
-
-        /* VIDEO */
-
-        .video-area {
-            position: relative;
-            padding-bottom: 178%;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, .5);
-        }
-
-        video {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* BOTÃO ÁUDIO */
-
-        .audio-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, .7);
-            color: #fff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            display: none;
-            cursor: pointer;
-            z-index: 30;
-
-            /* CORREÇÃO IPHONE */
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        /* CONTADOR */
-
-        .offer-timer {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ee4d2d;
-            color: #fff;
-            font-weight: bold;
-            font-size: 13px;
-            padding: 6px 10px;
-            border-radius: 20px;
-            z-index: 20;
-        }
-
-        /* BOTÃO SHOPEE */
-
-        .buy-btn {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ee4d2d;
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 15px;
-            text-decoration: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .5);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: translateX(-50%) scale(1)
-            }
-
-            50% {
-                transform: translateX(-50%) scale(1.08)
-            }
-
-            100% {
-                transform: translateX(-50%) scale(1)
-            }
-        }
-
-        .buy-btn:hover {
-            animation: none;
-            background: #d84327;
-        }
-
-        /* MOBILE */
-
-        @media(max-width:480px) {
-
-            .offer-box {
-                max-width: 280px;
-            }
-
-            /* EVITA SOBREPOSIÇÃO NO IPHONE */
-
-            .audio-btn {
-                top: 50px;
-            }
-
-            .buy-btn {
-                font-size: 14px;
-                padding: 10px 22px;
-            }
-
-        }
-    </style>
-
-    <script>
-
-        document.addEventListener("DOMContentLoaded", () => {
-
-            const modal = document.getElementById("videoModal")
-            const video = document.getElementById("offerVideo")
-            const close = document.getElementById("closeOffer")
-            const audio = document.getElementById("audioBtn")
-            const area = document.getElementById("videoArea")
-
-            /* MOSTRAR MODAL */
-
-            function showModal() {
-
-                modal.style.display = "flex"
-
-                video.play().then(() => {
-
-                    setTimeout(() => {
-                        if (video.muted) {
-                            audio.style.display = "block"
-                        }
-                    }, 1500)
-
-                }).catch(() => {
-                    area.addEventListener("click", () => video.play(), { once: true })
-                })
-
-            }
-
-            /* FECHAR MODAL */
-
-            function closeModal() {
-
-                modal.style.display = "none"
-
-                video.pause()
-                video.currentTime = 0
-                video.muted = true
-                audio.style.display = "none"
-
-            }
-
-            close.onclick = closeModal
-
-            window.onclick = e => {
-                if (e.target === modal) {
-                    closeModal()
-                }
-            }
-
-            document.addEventListener("keydown", e => {
-                if (e.key === "Escape") {
-                    closeModal()
-                }
-            })
-
-            /* ATIVAR AUDIO */
-
-            audio.onclick = () => {
-
-                video.muted = false
-                video.volume = 1
-                audio.style.display = "none"
-                video.play()
-
-            }
-
-            /* CONTADOR */
-
-            let time = 33
-            const countdown = document.getElementById("countdown")
-
-            setInterval(() => {
-
-                if (time > 0) {
-                    time--
-                    countdown.textContent = time
-                }
-
-            }, 1000)
-
-            /* ABRIR MODAL */
-
-            setTimeout(showModal, 1500)
-
-        })
-
-    </script>
-
 </body>
 
 </html>
