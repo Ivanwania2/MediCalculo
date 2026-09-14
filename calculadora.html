@@ -116,15 +116,22 @@
             z-index: 2;
         }
 
+        /* ========== AJUSTE DA IMAGEM ========== */
         .ad-card .ad-image {
             width: 100%;
             aspect-ratio: 1 / 1;
-            background: linear-gradient(135deg, #fef9c3 0%, #fde68a 100%);
+            background: #f8fafc;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.2rem;
-            color: #b45309;
+            overflow: hidden;
+        }
+
+        .ad-card .ad-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .ad-card .ad-body {
@@ -141,7 +148,7 @@
             color: #1f2937;
             line-height: 1.25;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -222,11 +229,6 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: #718096;
-            font-size: 1.1em;
         }
 
         /* ========== FORMULÁRIO ========== */
@@ -614,10 +616,6 @@
                 font-size: 1.75em;
             }
 
-            .subtitle {
-                font-size: 1em;
-            }
-
             .medicamento-card {
                 padding: 18px;
             }
@@ -671,13 +669,14 @@
                 padding: 8px 6px;
             }
 
+            /* Ajuste dos Anúncios Inline no Mobile para empilhar (imagem em cima, texto embaixo) */
             .ad-inline .ad-card {
                 flex-direction: column;
             }
 
             .ad-inline .ad-card .ad-image {
                 width: 100%;
-                aspect-ratio: 16 / 9;
+                aspect-ratio: 1 / 1; /* Mantém quadrado como no desktop */
                 font-size: 3rem;
             }
 
@@ -873,21 +872,26 @@
 
         <!-- ========== SIDEBAR ESQUERDA (DESKTOP) ========== -->
         <aside class="ad-sidebar" id="adSidebarLeft">
+            <!-- Card 1: Medidor de Pressão -->
             <div class="ad-card">
                 <span class="ad-tag">Publicidade</span>
-               <img src="./img/Medidor_pressão_arterial.png" alt="Aparelho medidor de pressão arterial" style="width:100%;height:100%;object-fit:cover;">
+                <div class="ad-image">
+                    <img src="./img/Medidor_pressão_arterial.png" alt="Aparelho Medidor de Pressão Arterial">
+                </div>
                 <div class="ad-body">
                     <div class="ad-title">Aparelho Medidor de Pressão Arterial Aferidor Monitor Digital</div>
-                    <a href="https://meli.la/2h9bykr"
-                        target="_blank" rel="noopener noreferrer" class="ad-cta">
+                    <a href="https://meli.la/2h9bykr" target="_blank" rel="noopener noreferrer" class="ad-cta">
                         Ver oferta no Mercado Livre
                     </a>
                 </div>
             </div>
 
+            <!-- Card 2: Aparelho de Pressão Digital (Replicado) -->
             <div class="ad-card">
                 <span class="ad-tag">Publicidade</span>
-                <div class="ad-image">🩺</div>
+                <div class="ad-image">
+                    <img src="./img/Medidor_pressão_arterial.png" alt="Aparelho de Pressão Digital Automático">
+                </div>
                 <div class="ad-body">
                     <div class="ad-title">Aparelho de Pressão Digital Automático</div>
                     <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
@@ -897,9 +901,12 @@
                 </div>
             </div>
 
+            <!-- Card 3: Termômetro (Replicado) -->
             <div class="ad-card">
                 <span class="ad-tag">Publicidade</span>
-                <div class="ad-image">🌡️</div>
+                <div class="ad-image">
+                    <img src="./img/Medidor_pressão_arterial.png" alt="Termômetro Digital Infravermelho">
+                </div>
                 <div class="ad-body">
                     <div class="ad-title">Termômetro Digital Infravermelho</div>
                     <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
@@ -914,25 +921,21 @@
         <div class="container">
             <div class="header">
                 <h1>Medicamentos App</h1>
-                <a href="https://www.medicalculo.com.br" target="_blank">
-                    <img src="img/Logotipomenor.png" class="img-fluid mx-auto d-block img-thumbnail"
-                        alt="Logo Medicalculo">
-                </a>
-                <br />
-                <div class="subtitle">Medicamentos App Online</div>
             </div>
 
             <!-- ANÚNCIO INLINE 1 (aparece só em mobile/tablet) -->
             <div class="ad-inline">
                 <div class="ad-card">
                     <span class="ad-tag">Publicidade</span>
-                     <div class="ad-image">🩺</div>
-                        <div class="ad-body">
-                            <div class="ad-title">Aparelho de Pressão Digital Automático</div>
-                            <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
-                                target="_blank" rel="noopener noreferrer" class="ad-cta">
-                                Ver ofertas
-                            </a>
+                    <div class="ad-image">
+                        <img src="./img/Medidor_pressão_arterial.png" alt="Aparelho de Pressão Digital">
+                    </div>
+                    <div class="ad-body">
+                        <div class="ad-title">Aparelho de Pressão Digital Automático</div>
+                        <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
+                            target="_blank" rel="noopener noreferrer" class="ad-cta">
+                            Ver ofertas
+                        </a>
                     </div>
                 </div>
             </div>
@@ -948,7 +951,9 @@
                 <div class="ad-inline">
                     <div class="ad-card">
                         <span class="ad-tag">Publicidade</span>
-                        <div class="ad-image">🩺</div>
+                        <div class="ad-image">
+                            <img src="./img/Medidor_pressão_arterial.png" alt="Aparelho de Pressão Digital">
+                        </div>
                         <div class="ad-body">
                             <div class="ad-title">Aparelho de Pressão Digital Automático</div>
                             <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
@@ -995,7 +1000,9 @@
             <div class="ad-inline">
                 <div class="ad-card">
                     <span class="ad-tag">Publicidade</span>
-                    <div class="ad-image">🌡️</div>
+                    <div class="ad-image">
+                        <img src="./img/Medidor_pressão_arterial.png" alt="Termômetro Digital Infravermelho">
+                    </div>
                     <div class="ad-body">
                         <div class="ad-title">Termômetro Digital Infravermelho</div>
                         <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
@@ -1009,9 +1016,12 @@
 
         <!-- ========== SIDEBAR DIREITA (DESKTOP) ========== -->
         <aside class="ad-sidebar" id="adSidebarRight">
+            <!-- Card 1: Kit Diabetes -->
             <div class="ad-card">
                 <span class="ad-tag">Publicidade</span>
-                <div class="ad-image">💉</div>
+                <div class="ad-image">
+                    <img src="./img/Medidor_pressão_arterial.png" alt="Kit Diabetes - Glicosímetro">
+                </div>
                 <div class="ad-body">
                     <div class="ad-title">Kit Diabetes - Glicosímetro + 50 Fitas</div>
                     <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
@@ -1021,9 +1031,12 @@
                 </div>
             </div>
 
+            <!-- Card 2: Porta Comprimidos -->
             <div class="ad-card">
                 <span class="ad-tag">Publicidade</span>
-                <div class="ad-image">💊</div>
+                <div class="ad-image">
+                    <img src="./img/Medidor_pressão_arterial.png" alt="Porta Comprimidos Diário">
+                </div>
                 <div class="ad-body">
                     <div class="ad-title">Porta Comprimidos Diário com 7 Divisões</div>
                     <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
@@ -1033,9 +1046,12 @@
                 </div>
             </div>
 
+            <!-- Card 3: Kit Curativos -->
             <div class="ad-card">
                 <span class="ad-tag">Publicidade</span>
-                <div class="ad-image">🩹</div>
+                <div class="ad-image">
+                    <img src="./img/Medidor_pressão_arterial.png" alt="Kit Curativos e Primeiros Socorros">
+                </div>
                 <div class="ad-body">
                     <div class="ad-title">Kit Curativos e Primeiros Socorros Completo</div>
                     <a href="https://www.mercadolivre.com.br/social/ofertascampomaior/lists/3e54957a-a2ba-47ef-b838-61e54e0ecadd#tracking_id=28641c93-c5c4-4598-8682-409c982a27b7"
